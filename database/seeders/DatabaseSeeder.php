@@ -24,6 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CitySeeder::class,
             ServiceSeeder::class,
+            ReviewSeeder::class,
             PageSeeder::class,
             RealMediaSeeder::class,
             RedirectSeeder::class,

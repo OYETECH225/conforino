@@ -11,11 +11,7 @@
         <div class="mt-12 grid gap-8 md:grid-cols-2">
             @forelse($reviews as $review)
                 <figure class="border-l-2 border-turquoise pl-6">
-                    <div class="flex items-center gap-1 text-turquoise-dark" aria-hidden="true">
-                        @for($i = 0; $i < $review->rating; $i++)
-                            <x-brand-icon name="star" class="h-4 w-4" />
-                        @endfor
-                    </div>
+                    <x-star-rating :rating="$review->rating" />
                     <blockquote class="mt-3 font-serif text-lg italic leading-relaxed text-navy">« {{ $review->text }} »</blockquote>
                     <figcaption class="mt-3 text-sm text-navy/70">
                         {{ $review->author_name }}@if($review->cityName()), {{ $review->cityName() }}@endif

@@ -55,10 +55,9 @@ Le seeder crée :
   (paragraphes de démarrage à personnaliser dans l'admin, voir plus bas) ;
 - les pages Accueil, Services, FAQ, Contact, Mentions légales, Politique de
   confidentialité, Protection du consommateur, CGV ;
-- les redirections 301 connues depuis l'ancien site conforino.fr.
-
-**Aucun faux avis client n'est seedé.** La table `reviews` est vide au départ :
-ajoutez les vrais avis (Google ou site) depuis l'admin — Contenu → Avis clients.
+- les redirections 301 connues depuis l'ancien site conforino.fr ;
+- 10 vrais avis Google clients (widget Trustindex de l'ancien site — noms, notes
+  et textes authentiques, aucun avis inventé).
 
 ### Passer en MySQL (production)
 
@@ -158,10 +157,12 @@ que la planification s'active. Vérifiez la destination de stockage des sauvegar
 
 ## Points restés en placeholder (à compléter par CONFOR'INO)
 
-- **Avis clients** : table vide, à peupler avec les vrais avis (Google Business Profile
-  ou saisie manuelle).
-- **Photos avant/après** : aucune image de chantier n'a pu être récupérée depuis
-  l'ancien site — à uploader dans Réalisations et dans les blocs Avant/Après des pages.
+- **Paires avant/après réelles** : les 4 réalisations seedées n'ont qu'une photo
+  (le résultat fini, récupérée sur l'ancien site) — aucune "photo avant" n'a été
+  inventée. Uploadez de vraies photos avant/après dans Réalisations dès qu'elles
+  sont disponibles pour activer le slider de comparaison.
 - **Paragraphes locaux par ville** (`local_intro` sur chaque couple prestation/ville) :
   contenu de démarrage généré automatiquement, à personnaliser pour maximiser la
   différenciation SEO entre les pages villes.
+- **Avis clients récents** : 10 vrais avis Google historiques sont importés ; pensez à
+  ajouter les nouveaux avis au fil de l'eau depuis l'admin.
