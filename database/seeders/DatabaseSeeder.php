@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             ServiceSeeder::class,
             PageSeeder::class,
+            RealMediaSeeder::class,
             RedirectSeeder::class,
         ]);
     }

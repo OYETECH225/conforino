@@ -15,13 +15,15 @@
         @endif
     </div>
 
-    <label class="sr-only" for="{{ $id }}">Faire glisser pour comparer avant et après</label>
-    <input
-        type="range" min="0" max="100" x-model.number="pos"
-        id="{{ $id }}"
-        class="mt-4 w-full accent-turquoise"
-        style="min-height:44px"
-    >
+    @if($before)
+        <label class="sr-only" for="{{ $id }}">Faire glisser pour comparer avant et après</label>
+        <input
+            type="range" min="0" max="100" x-model.number="pos"
+            id="{{ $id }}"
+            class="mt-4 w-full accent-turquoise"
+            style="min-height:44px"
+        >
+    @endif
 
     @if($caption)
         <figcaption class="mt-2 text-sm text-navy/70">{{ $caption }}</figcaption>

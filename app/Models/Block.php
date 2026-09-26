@@ -19,6 +19,8 @@ class Block extends Model
     public const TYPE_CONTACT_FORM = 'contact_form';
     public const TYPE_STATS = 'stats';
     public const TYPE_BEFORE_AFTER = 'before_after';
+    public const TYPE_PROCESS = 'process';
+    public const TYPE_GALLERY_PREVIEW = 'gallery_preview';
 
     public const TYPES = [
         self::TYPE_HERO => 'Hero',
@@ -30,6 +32,8 @@ class Block extends Model
         self::TYPE_CONTACT_FORM => 'Formulaire de contact',
         self::TYPE_STATS => 'Chiffres clés',
         self::TYPE_BEFORE_AFTER => 'Avant / Après',
+        self::TYPE_PROCESS => 'Parcours client (étapes numérotées)',
+        self::TYPE_GALLERY_PREVIEW => 'Aperçu réalisations',
     ];
 
     protected $fillable = ['page_id', 'type', 'data', 'order', 'is_active'];

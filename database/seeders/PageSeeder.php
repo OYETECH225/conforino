@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\Page;
 use App\Models\Review;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 /**
@@ -28,8 +29,26 @@ class PageSeeder extends Seeder
             $this->block('hero', [
                 'heading' => "CONFOR'INO réalise vos projets de salle de bain, de douche sécurisée et d'adaptation PMR",
                 'subheading' => "Entreprise de rénovation basée à Argenteuil, nous accompagnons particuliers et professionnels dans leurs projets de salle de bain, d'adaptation PMR et de rénovation intérieure — un accompagnement attentif, du premier échange aux dernières finitions.",
+                'image' => $this->seedImage('hero-homepage.webp'),
                 'cta_label' => 'Recevoir mon devis gratuit',
                 'cta_url' => '/contact',
+            ]),
+            $this->block('process', [
+                'heading' => 'Notre méthode',
+                'steps' => [
+                    [
+                        'title' => 'Étude personnalisée',
+                        'points' => ['Analyse de votre espace', 'Conseils adaptés à vos besoins', 'Solutions esthétiques et fonctionnelles'],
+                    ],
+                    [
+                        'title' => 'Projet clé en main',
+                        'points' => ['Conception et choix des équipements', 'Coordination complète des travaux', 'Un interlocuteur unique'],
+                    ],
+                    [
+                        'title' => 'Confort & autonomie',
+                        'points' => ['Aménagements accessibles et sécurisés', 'Circulation facilitée au quotidien', 'Un résultat durable et élégant'],
+                    ],
+                ],
             ]),
             $this->block('stats', [
                 'heading' => 'Pourquoi nous choisir',
@@ -49,7 +68,7 @@ class PageSeeder extends Seeder
                     ['icon' => 'renovation', 'title' => 'Rénovation intérieure', 'summary' => 'Plomberie, électricité, peinture, cloisons.', 'url' => '/services/renovation-interieure'],
                 ],
             ]),
-            $this->block('before_after', ['heading' => 'Nos réalisations', 'items' => []]),
+            $this->block('gallery_preview', ['heading' => 'Nos réalisations', 'count' => 4]),
             $this->block('testimonials', [
                 'heading' => "Nos clients s'expriment",
                 'review_ids' => Review::query()->published()->pluck('id')->all(),
@@ -171,6 +190,25 @@ class PageSeeder extends Seeder
         $last = array_pop($items);
 
         return implode(', ', $items).' et '.$last;
+    }
+
+    /**
+     * Copie une image d'origine (database/seeders/assets/) vers le disque
+     * public et renvoie le chemin relatif attendu par le bloc hero
+     * (FileUpload simple, hors médiathèque — voir resources/views/blocks/hero.blade.php).
+     */
+    protected function seedImage(string $filename): ?string
+    {
+        $source = database_path('seeders/assets/'.$filename);
+
+        if (! file_exists($source)) {
+            return null;
+        }
+
+        $target = 'hero/'.$filename;
+        Storage::disk('public')->put($target, file_get_contents($source));
+
+        return $target;
     }
 
     protected function mentionsLegalesHtml(): string

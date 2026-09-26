@@ -238,6 +238,33 @@ class PageForm
                             ->reorderableWithButtons()
                             ->columnSpanFull(),
                     ]),
+
+                BuilderBlock::make('process')
+                    ->label('Parcours client (étapes numérotées)')
+                    ->icon('heroicon-o-list-bullet')
+                    ->schema([
+                        TextInput::make('heading')->label('Titre de la section')->columnSpanFull(),
+                        Repeater::make('steps')
+                            ->label('Étapes')
+                            ->schema([
+                                TextInput::make('title')->label('Titre de l\'étape')->required()->columnSpanFull(),
+                                Repeater::make('points')
+                                    ->label('Points clés')
+                                    ->simple(TextInput::make('point')->required())
+                                    ->columnSpanFull(),
+                            ])
+                            ->reorderableWithButtons()
+                            ->itemLabel(fn (array $state): ?string => $state['title'] ?? null)
+                            ->columnSpanFull(),
+                    ]),
+
+                BuilderBlock::make('gallery_preview')
+                    ->label('Aperçu réalisations')
+                    ->icon('heroicon-o-photo')
+                    ->schema([
+                        TextInput::make('heading')->label('Titre de la section')->columnSpanFull(),
+                        TextInput::make('count')->label('Nombre de photos à afficher')->numeric()->default(4),
+                    ]),
             ]);
     }
 }
