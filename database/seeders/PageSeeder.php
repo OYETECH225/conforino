@@ -108,6 +108,39 @@ class PageSeeder extends Seeder
             ]),
         ]);
 
+        $this->page('a-propos', 'À propos', 'index,follow', 'WebPage', [
+            $this->block('hero', [
+                'heading' => "À propos de CONFOR'INO",
+                'subheading' => 'Un accompagnement attentif, du premier échange aux dernières finitions.',
+                'image' => $this->seedImage('renovation-1.jpeg'),
+                'cta_label' => 'Recevoir mon devis gratuit',
+                'cta_url' => '/contact',
+            ]),
+            $this->block('rich_text', [
+                'content' => "<p>Entreprise de rénovation basée à Argenteuil, CONFOR'INO accompagne les particuliers et les professionnels dans leurs projets de salle de bain, d'adaptation PMR et de rénovation intérieure.</p>"
+                    ."<p>Chaque chantier commence par une étude de vos besoins, de votre logement et de vos contraintes. Un interlocuteur suit votre projet, coordonne les travaux et reste disponible jusqu'à la livraison.</p>"
+                    ."<p>Notre objectif est de vous proposer une solution claire, réaliste et durable, avec des travaux couverts par une assurance responsabilité civile professionnelle et une garantie décennale.</p>",
+            ]),
+            $this->block('stats', [
+                'heading' => 'En quelques chiffres',
+                'items' => [
+                    ['value' => '13 ans', 'label' => "d'expérience métier dans la rénovation et l'aménagement"],
+                    ['value' => '200+', 'label' => 'projets et clients accompagnés'],
+                    ['value' => 'Décennale', 'label' => 'garantie sur tous nos chantiers'],
+                    ['value' => 'RC Pro', 'label' => 'assurance responsabilité civile professionnelle'],
+                ],
+            ]),
+            $this->block('service_areas', [
+                'heading' => "Zones d'intervention",
+                'intro' => "Nous intervenons principalement à Argenteuil et dans les communes voisines du Val-d'Oise :",
+                'city_ids' => City::query()->active()->pluck('id')->all(),
+            ]),
+            $this->block('contact_form', [
+                'heading' => 'Parlons de votre projet',
+                'intro' => 'Réponse sous 48h ouvrées, sans engagement.',
+            ]),
+        ]);
+
         $this->page('faq', 'FAQ', 'index,follow', 'FAQPage', [
             $this->block('hero', ['heading' => 'Questions fréquentes sur nos travaux']),
             $this->block('faq', [

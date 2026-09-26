@@ -36,8 +36,11 @@
         <div>
             <h2 class="font-display text-sm font-semibold uppercase tracking-wide text-turquoise">Informations</h2>
             <ul class="mt-4 space-y-2 text-sm text-white/80">
+                <li><a href="{{ route('page.show', 'a-propos') }}" class="hover:text-turquoise">À propos</a></li>
                 <li><a href="{{ route('page.show', 'mentions-legales') }}" class="hover:text-turquoise">Mentions légales</a></li>
                 <li><a href="{{ route('page.show', 'politique-de-confidentialite') }}" class="hover:text-turquoise">Politique de confidentialité</a></li>
+                <li><a href="{{ route('page.show', 'protection-du-consommateur') }}" class="hover:text-turquoise">Protection du consommateur</a></li>
+                <li><a href="{{ route('page.show', 'conditions-generales-de-vente') }}" class="hover:text-turquoise">Conditions générales de vente</a></li>
                 <li><a href="{{ route('page.show', 'contact') }}" class="hover:text-turquoise">Contact</a></li>
             </ul>
         </div>

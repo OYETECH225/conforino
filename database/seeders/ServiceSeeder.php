@@ -81,16 +81,24 @@ class ServiceSeeder extends Seeder
      */
     protected function localIntro(string $serviceTitle, string $cityName): string
     {
+        // lcfirst (et non mb_strtolower) pour ne minuscule que la première
+        // lettre : préserve l'acronyme "PMR" au lieu de le transformer en "pmr".
+        $service = lcfirst($serviceTitle);
+
+        // Élision ("d'aménagement" et non "de aménagement") dès que le nom
+        // de prestation commence par une voyelle.
+        $de = preg_match('/^[aeiouyâàäéèêëîïôöûüù]/i', $service) ? "d'" : 'de ';
+
         $templates = [
-            "CONFOR'INO réalise vos travaux de {service} à {ville}, avec la même exigence de qualité et de transparence que sur l'ensemble de notre secteur d'intervention dans le Val-d'Oise.",
-            "À {ville}, notre équipe intervient pour des projets de {service}, du premier échange jusqu'à la réception du chantier, avec un devis gratuit et sans engagement.",
-            "Basée à Argenteuil, l'équipe CONFOR'INO se déplace régulièrement à {ville} pour des chantiers de {service}, en s'adaptant aux spécificités du bâti local.",
+            "CONFOR'INO réalise vos travaux {$de}{service} à {ville}, avec la même exigence de qualité et de transparence que sur l'ensemble de notre secteur d'intervention dans le Val-d'Oise.",
+            "À {ville}, notre équipe intervient pour des projets {$de}{service}, du premier échange jusqu'à la réception du chantier, avec un devis gratuit et sans engagement.",
+            "Basée à Argenteuil, l'équipe CONFOR'INO se déplace régulièrement à {ville} pour des chantiers {$de}{service}, en s'adaptant aux spécificités du bâti local.",
         ];
 
         $template = $templates[crc32($cityName) % count($templates)];
 
         return strtr($template, [
-            '{service}' => mb_strtolower($serviceTitle),
+            '{service}' => $service,
             '{ville}' => $cityName,
         ]);
     }

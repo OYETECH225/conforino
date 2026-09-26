@@ -16,13 +16,16 @@ class PagesTable
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->label('Titre')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('slug')
+                    ->label('URL')
                     ->searchable()
                     ->prefix('/')
                     ->color('gray'),
                 TextColumn::make('status')
+                    ->label('Statut')
                     ->badge()
                     ->color(fn (string $state): string => $state === 'published' ? 'success' : 'gray')
                     ->formatStateUsing(fn (string $state): string => $state === 'published' ? 'Publié' : 'Brouillon'),
@@ -40,6 +43,7 @@ class PagesTable
             ])
             ->filters([
                 SelectFilter::make('status')
+                    ->label('Statut')
                     ->options(['draft' => 'Brouillon', 'published' => 'Publié']),
             ])
             ->recordActions([

@@ -37,11 +37,13 @@ class PageForm
                                     ->afterStateUpdated(fn (string $operation, $state, callable $set) => $operation === 'create' ? $set('slug', Str::slug($state)) : null)
                                     ->columnSpanFull(),
                                 TextInput::make('slug')
+                                    ->label('Slug')
                                     ->required()
                                     ->unique(ignoreRecord: true)
                                     ->helperText('Utilisé dans l\'URL. Ex : "a-propos" -> /a-propos')
                                     ->columnSpanFull(),
                                 TextInput::make('breadcrumb_title')
+                                    ->label('Titre dans le fil d\'Ariane')
                                     ->helperText('Libellé affiché dans le fil d\'Ariane si différent du titre.')
                                     ->columnSpanFull(),
 

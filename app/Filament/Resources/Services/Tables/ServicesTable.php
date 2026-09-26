@@ -18,7 +18,7 @@ class ServicesTable
             ->columns([
                 SpatieMediaLibraryImageColumn::make('image')->collection('image')->label(''),
                 TextColumn::make('title')->label('Prestation')->searchable()->sortable(),
-                TextColumn::make('slug')->prefix('/services/')->color('gray'),
+                TextColumn::make('slug')->label('URL')->prefix('/services/')->color('gray'),
                 TextColumn::make('cities_count')->counts('cities')->label('Villes déclinées'),
                 IconColumn::make('is_active')->boolean()->label('Actif'),
                 TextColumn::make('order')->label('Ordre')->sortable(),
