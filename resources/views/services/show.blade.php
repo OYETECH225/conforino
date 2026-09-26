@@ -91,11 +91,15 @@
         <section class="bg-turquoise-tint py-16">
             <div class="mx-auto max-w-5xl px-4 sm:px-6">
                 <h2 class="cote font-display text-2xl font-semibold text-navy sm:text-3xl">Nos clients s'expriment</h2>
-                <div class="mt-10 grid gap-8 md:grid-cols-2">
+                <div class="mt-10 columns-1 gap-8 md:columns-2">
                     @foreach($reviews as $review)
-                        <figure class="border-l-2 border-turquoise pl-6">
-                            <blockquote class="font-serif text-lg italic leading-relaxed text-navy">« {{ $review->text }} »</blockquote>
-                            <figcaption class="mt-3 text-sm text-navy/70">{{ $review->author_name }}@if($review->cityName()), {{ $review->cityName() }}@endif</figcaption>
+                        <figure class="mb-8 break-inside-avoid border-l-2 border-turquoise pl-6">
+                            <x-star-rating :rating="$review->rating" />
+                            <blockquote class="mt-3 font-serif text-lg italic leading-relaxed text-navy">« {{ $review->text }} »</blockquote>
+                            <figcaption class="mt-3 text-sm text-navy/70">
+                                {{ $review->author_name }}@if($review->cityName()), {{ $review->cityName() }}@endif
+                                <span class="sr-only">— note {{ $review->rating }}/5</span>
+                            </figcaption>
                         </figure>
                     @endforeach
                 </div>

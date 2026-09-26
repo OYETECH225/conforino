@@ -11,9 +11,11 @@
                 <h2 class="cote font-display text-2xl font-semibold text-navy sm:text-3xl">{{ $heading }}</h2>
             @endif
 
-            <div class="mt-10 grid gap-8 md:grid-cols-2">
+            {{-- Colonnes CSS (pas une grille) : chaque avis garde sa propre
+                 hauteur au lieu d'être étiré par le plus long avis de sa ligne. --}}
+            <div class="mt-10 columns-1 gap-8 md:columns-2">
                 @foreach($reviews as $review)
-                    <figure class="border-l-2 border-turquoise pl-6">
+                    <figure class="mb-8 break-inside-avoid border-l-2 border-turquoise pl-6">
                         <x-star-rating :rating="$review->rating" />
                         <blockquote class="mt-3 font-serif text-lg italic leading-relaxed text-navy">
                             « {{ $review->text }} »

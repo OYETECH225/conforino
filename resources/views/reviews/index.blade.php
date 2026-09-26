@@ -8,20 +8,24 @@
             </p>
         @endif
 
-        <div class="mt-12 grid gap-8 md:grid-cols-2">
-            @forelse($reviews as $review)
-                <figure class="border-l-2 border-turquoise pl-6">
-                    <x-star-rating :rating="$review->rating" />
-                    <blockquote class="mt-3 font-serif text-lg italic leading-relaxed text-navy">« {{ $review->text }} »</blockquote>
-                    <figcaption class="mt-3 text-sm text-navy/70">
-                        {{ $review->author_name }}@if($review->cityName()), {{ $review->cityName() }}@endif
-                        @if($review->source === 'google') · Avis Google @endif
-                        <span class="sr-only">— note {{ $review->rating }}/5</span>
-                    </figcaption>
-                </figure>
-            @empty
-                <p class="text-navy/60">Les premiers avis seront bientôt publiés ici.</p>
-            @endforelse
-        </div>
+        @if($reviews->isEmpty())
+            <p class="mt-12 text-navy/60">Les premiers avis seront bientôt publiés ici.</p>
+        @else
+            {{-- Colonnes CSS (pas une grille) : chaque avis garde sa propre hauteur
+                 au lieu d'être étiré par le plus long avis de sa ligne. --}}
+            <div class="mt-12 columns-1 gap-8 md:columns-2">
+                @foreach($reviews as $review)
+                    <figure class="mb-8 break-inside-avoid border-l-2 border-turquoise pl-6">
+                        <x-star-rating :rating="$review->rating" />
+                        <blockquote class="mt-3 font-serif text-lg italic leading-relaxed text-navy">« {{ $review->text }} »</blockquote>
+                        <figcaption class="mt-3 text-sm text-navy/70">
+                            {{ $review->author_name }}@if($review->cityName()), {{ $review->cityName() }}@endif
+                            @if($review->source === 'google') · Avis Google @endif
+                            <span class="sr-only">— note {{ $review->rating }}/5</span>
+                        </figcaption>
+                    </figure>
+                @endforeach
+            </div>
+        @endif
     </section>
 </x-layout>
