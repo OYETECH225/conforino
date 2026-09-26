@@ -17,6 +17,8 @@
                     loading="eager"
                     width="800" height="600"
                 >
+            @else
+                <x-blueprint-pattern label="Photo à venir" />
             @endif
         </div>
 

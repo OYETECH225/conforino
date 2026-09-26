@@ -12,6 +12,8 @@
             <div class="order-2 aspect-[4/3] overflow-hidden bg-navy-tint md:order-1 md:aspect-auto">
                 @if($service->imageUrl())
                     <img src="{{ $service->imageUrl() }}" alt="{{ $service->title }}@if($city) à {{ $city->name }}@endif" class="h-full w-full object-cover" loading="eager">
+                @else
+                    <x-blueprint-pattern label="Photo à venir" />
                 @endif
             </div>
             <div class="order-1 flex flex-col justify-center gap-6 px-4 py-14 sm:px-8 md:order-2 md:py-20 lg:px-16">
