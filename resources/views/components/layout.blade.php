@@ -1,0 +1,70 @@
+@props([
+    'seo' => [],
+    'breadcrumbs' => [],
+    'jsonLd' => null,
+    'showBreadcrumb' => true,
+])
+
+<!doctype html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{ $seo['title'] ?? "CONFOR'INO" }}</title>
+    @if(!empty($seo['description']))
+        <meta name="description" content="{{ $seo['description'] }}">
+    @endif
+    <meta name="robots" content="{{ $seo['robots'] ?? 'index,follow' }}">
+    <link rel="canonical" href="{{ $seo['canonical'] ?? url()->current() }}">
+
+    {{-- Open Graph --}}
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CONFOR'INO">
+    <meta property="og:title" content="{{ $seo['title'] ?? "CONFOR'INO" }}">
+    @if(!empty($seo['description']))
+        <meta property="og:description" content="{{ $seo['description'] }}">
+    @endif
+    <meta property="og:url" content="{{ $seo['canonical'] ?? url()->current() }}">
+    @if(!empty($seo['ogImage']))
+        <meta property="og:image" content="{{ $seo['ogImage'] }}">
+    @endif
+
+    <link rel="icon" href="{{ asset('favicon.svg') }}" type="image/svg+xml">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400;1,9..144,500&display=swap" rel="stylesheet">
+
+    @if(!empty($jsonLd))
+        <script type="application/ld+json">{!! $jsonLd !!}</script>
+    @endif
+
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @filamentStyles
+    @livewireStyles
+</head>
+<body class="bg-white text-navy">
+    <a href="#contenu" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-turquoise focus:text-white focus:px-4 focus:py-2">
+        Aller au contenu
+    </a>
+
+    <x-site-header :nav-services="$navServices ?? []" :settings="$settings" />
+
+    @if(($showBreadcrumb ?? true) && !empty($breadcrumbs) && count($breadcrumbs) > 1)
+        <x-breadcrumb :items="$breadcrumbs" />
+    @endif
+
+    <main id="contenu">
+        {{ $slot }}
+    </main>
+
+    <x-site-footer :settings="$settings" />
+
+    <x-cookie-banner :settings="$settings" />
+
+    @filamentScripts
+    @livewireScripts
+    @vite('resources/js/app.js')
+</body>
+</html>

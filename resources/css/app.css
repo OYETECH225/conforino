@@ -1,0 +1,117 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* Polices chargées via <link> dans components/layout.blade.php (préconnexion
+   + chargement parallèle, plutôt qu'un @import CSS bloquant). */
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+/*
+ * Palette de marque CONFOR'INO — un seul duo turquoise/navy décliné en nuances,
+ * pas de troisième teinte d'accent. Voir le plan de design validé : le turquoise
+ * n'est jamais utilisé en texte courant sur fond clair (contraste ~2.3:1, sous AA).
+ */
+@theme {
+    --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+    --font-serif: 'Fraunces', ui-serif, Georgia, serif;
+    --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+
+    --color-turquoise: #40bbc9;
+    --color-turquoise-dark: #35919c;
+    --color-turquoise-tint: #e8f7f9;
+    --color-navy: #1e3664;
+    --color-navy-deep: #1a2a48;
+    --color-navy-tint: #f2f3f6;
+    --color-stone: #9aa3ae;
+
+    --color-primary-50: #eafafb;
+    --color-primary-100: #d3f1f3;
+    --color-primary-300: #86d6dd;
+    --color-primary-500: #40bbc9;
+    --color-primary-600: #35919c;
+    --color-primary-700: #2a747c;
+}
+
+[x-cloak] {
+    display: none !important;
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+
+        *,
+        *::before,
+        *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+
+    body {
+        @apply bg-white text-navy antialiased;
+        font-size: 16px;
+    }
+
+    /* Anneau de focus turquoise foncé, visible sur tous les éléments interactifs */
+    a:focus-visible,
+    button:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible,
+    select:focus-visible,
+    [tabindex]:focus-visible {
+        outline: 3px solid var(--color-turquoise-dark);
+        outline-offset: 2px;
+    }
+}
+
+@layer components {
+    /* Ligne de cote d'architecte : trait fin + amorces verticales aux extrémités,
+       utilisée pour souligner les titres de section et présenter les chiffres clés. */
+    .cote {
+        position: relative;
+        display: inline-block;
+        padding-bottom: 0.75rem;
+    }
+
+    .cote::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 2px;
+        width: 3rem;
+        background: var(--color-turquoise);
+    }
+
+    .cote::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -3px;
+        height: 8px;
+        width: 2px;
+        background: var(--color-turquoise);
+    }
+
+    .btn-primary {
+        @apply inline-flex items-center justify-center gap-2 rounded-sm px-6 font-medium transition-colors bg-turquoise text-white hover:bg-turquoise-dark;
+        min-height: 44px;
+    }
+
+    .btn-outline {
+        @apply inline-flex items-center justify-center gap-2 rounded-sm px-6 font-medium transition-colors border-2 border-navy text-navy hover:bg-navy hover:text-white;
+        min-height: 44px;
+    }
+}

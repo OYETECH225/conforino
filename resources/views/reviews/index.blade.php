@@ -1,0 +1,31 @@
+<x-layout :seo="$seo" :breadcrumbs="$breadcrumbs" :json-ld="$jsonLd" :show-breadcrumb="$showBreadcrumb">
+
+    <section class="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+        <h1 class="font-display text-3xl font-semibold text-navy sm:text-4xl">Avis clients</h1>
+        @if($reviews->isNotEmpty())
+            <p class="mt-4 text-lg text-navy/75">
+                Note moyenne de {{ number_format($reviews->avg('rating'), 1) }}/5 sur {{ $reviews->count() }} avis.
+            </p>
+        @endif
+
+        <div class="mt-12 grid gap-8 md:grid-cols-2">
+            @forelse($reviews as $review)
+                <figure class="border-l-2 border-turquoise pl-6">
+                    <div class="flex items-center gap-1 text-turquoise-dark" aria-hidden="true">
+                        @for($i = 0; $i < $review->rating; $i++)
+                            <x-brand-icon name="star" class="h-4 w-4" />
+                        @endfor
+                    </div>
+                    <blockquote class="mt-3 font-serif text-lg italic leading-relaxed text-navy">« {{ $review->text }} »</blockquote>
+                    <figcaption class="mt-3 text-sm text-navy/70">
+                        {{ $review->author_name }}@if($review->cityName()), {{ $review->cityName() }}@endif
+                        @if($review->source === 'google') · Avis Google @endif
+                        <span class="sr-only">— note {{ $review->rating }}/5</span>
+                    </figcaption>
+                </figure>
+            @empty
+                <p class="text-navy/60">Les premiers avis seront bientôt publiés ici.</p>
+            @endforelse
+        </div>
+    </section>
+</x-layout>
