@@ -6,12 +6,10 @@
     haute quand il y a beaucoup d'avis, sans les écueils UX/accessibilité
     d'un slider auto-rotatif (voir la discussion sur le hero).
 --}}
-<div x-data="{
-    scrollBy(amount) { this.$refs.track.scrollBy({ left: amount, behavior: 'instant' }); },
-}" class="mt-10">
+<div x-data="{ scrollBy(amount) { this.$refs.track.scrollBy({ left: amount, behavior: 'instant' }); } }" class="mt-10 min-w-0 max-w-full">
     <div
         x-ref="track"
-        class="flex items-start gap-6 overflow-x-auto pb-2 snap-x snap-proximity scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        class="flex min-w-0 max-w-full items-start gap-6 overflow-x-auto pb-2 snap-x snap-proximity scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         tabindex="0"
         role="region"
         aria-label="Avis clients (utilisez les flèches pour défiler)"

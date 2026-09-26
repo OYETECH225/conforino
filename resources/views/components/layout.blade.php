@@ -44,7 +44,7 @@
     @filamentStyles
     @livewireStyles
 </head>
-<body class="bg-white text-navy">
+<body class="overflow-x-hidden bg-white text-navy">
     <a href="#contenu" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-turquoise focus:text-white focus:px-4 focus:py-2">
         Aller au contenu
     </a>
