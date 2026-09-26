@@ -61,20 +61,20 @@ jobs:
       - name: Measure test coverage
         run: vendor/bin/phpunit --coverage-text=coverage.txt --colors=never
 
-      - name: Generate coverage badge data
+      - name: Generate coverage badge image
         run: |
           PERCENT=$(grep -m1 "Lines:" coverage.txt | grep -oE "[0-9]+\.[0-9]+" | head -1)
           COLOR=$(awk -v p="$PERCENT" 'BEGIN { if (p>=80) print "brightgreen"; else if (p>=50) print "yellow"; else print "red" }')
           mkdir -p .github/badges
-          printf '{"schemaVersion":1,"label":"coverage","message":"%s%%","color":"%s"}' "$PERCENT" "$COLOR" > .github/badges/coverage.json
-          cat .github/badges/coverage.json
+          curl -sf "https://img.shields.io/badge/coverage-${PERCENT}%25-${COLOR}" -o .github/badges/coverage.svg
+          cat .github/badges/coverage.svg
 
       - name: Commit coverage badge
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add .github/badges/coverage.json
+          git add .github/badges/coverage.svg
           if ! git diff --cached --quiet; then
             git commit -m "chore: update coverage badge [skip ci]"
             git push

@@ -1,7 +1,7 @@
 # CONFOR'INO — site vitrine
 
 [![Tests](https://github.com/OYETECH225/conforino/actions/workflows/tests.yml/badge.svg)](https://github.com/OYETECH225/conforino/actions/workflows/tests.yml)
-[![Coverage](https://img.shields.io/endpoint?url=https%3A%2F%2Fraw.githubusercontent.com%2FOYETECH225%2Fconforino%2Fmain%2F.github%2Fbadges%2Fcoverage.json)](https://github.com/OYETECH225/conforino/actions/workflows/tests.yml)
+[![Coverage](.github/badges/coverage.svg)](https://github.com/OYETECH225/conforino/actions/workflows/tests.yml)
 
 Site vitrine de CONFOR'INO (rénovation intérieure, agencement cuisine/salle de bain,
 adaptation PMR à domicile — Argenteuil, 95), reconstruit en Laravel avec un back-office
@@ -143,7 +143,9 @@ redirections 301, validation du consentement RGPD du formulaire de contact, et l
 synchronisation du Page Builder (Filament) vers la table `blocks`.
 
 Le badge de couverture ci-dessus est recalculé automatiquement par la CI à chaque push
-sur `main` (`.github/badges/coverage.json`, PCOV) — inutile de le mettre à jour à la main.
+sur `main` (`.github/badges/coverage.svg`, généré via PCOV puis committé directement dans le
+dépôt — fonctionne aussi en dépôt privé, contrairement à un badge externe pointant vers
+`raw.githubusercontent.com`) — inutile de le mettre à jour à la main.
 
 ## Sauvegardes
 
