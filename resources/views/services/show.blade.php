@@ -108,15 +108,15 @@
         <a href="{{ route('page.show', 'faq') }}" class="mt-2 inline-block font-medium text-turquoise-dark underline">Consulter la FAQ</a>
     </section>
 
-    <section class="bg-navy-deep py-16 text-white" id="devis">
+    <section class="bg-navy-tint py-16" id="devis">
         <div class="mx-auto grid max-w-5xl gap-10 px-4 sm:px-6 md:grid-cols-2 md:items-start">
             <div>
-                <h2 class="font-display text-2xl font-semibold sm:text-3xl">Recevez votre devis gratuit</h2>
-                <p class="mt-4 max-w-md text-white/75">
+                <h2 class="font-display text-2xl font-semibold text-navy sm:text-3xl">Recevez votre devis gratuit</h2>
+                <p class="mt-4 max-w-md text-navy/75">
                     Réponse sous 48h ouvrées, sans engagement.
                 </p>
             </div>
-            <div class="rounded-sm bg-white p-6 sm:p-8">
+            <div class="rounded-sm border border-stone/20 bg-white p-6 shadow-sm sm:p-8">
                 @livewire('contact-form')
             </div>
         </div>
