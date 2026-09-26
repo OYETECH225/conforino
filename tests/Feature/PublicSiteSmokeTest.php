@@ -38,7 +38,6 @@ class PublicSiteSmokeTest extends TestCase
             ['/services/amenagement-pmr-argenteuil'],
             ['/services/renovation-interieure'],
             ['/realisations'],
-            ['/avis'],
             ['/zones-d-intervention'],
             ['/faq'],
             ['/contact'],

@@ -3,7 +3,6 @@
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\RealisationController;
-use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\RobotsController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\SitemapController;
@@ -22,7 +21,6 @@ Route::get('/services/{slug}', [ServiceController::class, 'show'])->name('servic
 Route::get('/realisations', [RealisationController::class, 'index'])->name('realisations.index');
 Route::get('/realisations/{slug}', [RealisationController::class, 'show'])->name('realisations.show');
 
-Route::get('/avis', [ReviewController::class, 'index'])->name('reviews.index');
 Route::get('/zones-d-intervention', [CityController::class, 'index'])->name('cities.index');
 
 // Catch-all CMS : doit rester en dernier (FAQ, Contact, mentions légales, etc.)

@@ -26,6 +26,10 @@ class RedirectSeeder extends Seeder
             '/services/entreprise-renovation-95/' => '/services/renovation-interieure',
             '/installation-sanitaire-val-doise/' => '/services/renovation-interieure',
             '/conditions-generales-de-vente-et-dexecution-des-travaux' => '/conditions-generales-de-vente',
+            // Page "Avis clients" dédiée retirée : les avis restent visibles sur
+            // l'accueil et les pages service (bloc témoignages), qui suffisent
+            // pour le volume d'avis actuel.
+            '/avis' => '/',
         ];
 
         foreach ($map as $from => $to) {

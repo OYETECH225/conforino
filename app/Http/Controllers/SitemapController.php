@@ -29,7 +29,6 @@ class SitemapController extends Controller
 
         $sitemap->add(Url::create(route('services.index'))->setPriority(0.8));
         $sitemap->add(Url::create(route('realisations.index'))->setPriority(0.6));
-        $sitemap->add(Url::create(route('reviews.index'))->setPriority(0.5));
         $sitemap->add(Url::create(route('cities.index'))->setPriority(0.5));
 
         foreach (Service::query()->active()->get() as $service) {

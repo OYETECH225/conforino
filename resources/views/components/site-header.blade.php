@@ -21,7 +21,6 @@
                 </div>
             </div>
             <a href="{{ route('realisations.index') }}" class="font-display text-[15px] font-medium text-navy hover:text-turquoise-dark">Réalisations</a>
-            <a href="{{ route('reviews.index') }}" class="font-display text-[15px] font-medium text-navy hover:text-turquoise-dark">Avis clients</a>
             <a href="{{ route('cities.index') }}" class="font-display text-[15px] font-medium text-navy hover:text-turquoise-dark">Zones d'intervention</a>
             <a href="{{ route('page.show', 'faq') }}" class="font-display text-[15px] font-medium text-navy hover:text-turquoise-dark">FAQ</a>
         </nav>
@@ -48,7 +47,6 @@
                 <a href="{{ route('services.show', $service->slug) }}" class="py-2 pl-4 text-[15px] text-navy" style="min-height:44px">{{ $service->title }}</a>
             @endforeach
             <a href="{{ route('realisations.index') }}" class="py-3 font-display text-navy" style="min-height:44px">Réalisations</a>
-            <a href="{{ route('reviews.index') }}" class="py-3 font-display text-navy" style="min-height:44px">Avis clients</a>
             <a href="{{ route('cities.index') }}" class="py-3 font-display text-navy" style="min-height:44px">Zones d'intervention</a>
             <a href="{{ route('page.show', 'faq') }}" class="py-3 font-display text-navy" style="min-height:44px">FAQ</a>
             <a href="{{ route('page.show', 'contact') }}" class="btn-primary mt-3 justify-center">Devis gratuit</a>
