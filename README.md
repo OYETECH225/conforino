@@ -1,5 +1,7 @@
 # CONFOR'INO — site vitrine
 
+[![Tests](https://github.com/OYETECH225/conforino/actions/workflows/tests.yml/badge.svg)](https://github.com/OYETECH225/conforino/actions/workflows/tests.yml)
+
 Site vitrine de CONFOR'INO (rénovation intérieure, agencement cuisine/salle de bain,
 adaptation PMR à domicile — Argenteuil, 95), reconstruit en Laravel avec un back-office
 Filament permettant de gérer 100 % du contenu sans toucher au code.
