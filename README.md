@@ -25,6 +25,9 @@ Filament permettant de gérer 100 % du contenu sans toucher au code.
 
 ## Installation
 
+**Prérequis** : PHP 8.4+, Composer 2, Node 20+ (les dépendances Spatie verrouillées
+nécessitent PHP 8.4 minimum — voir la note ci-dessus sur l'écart de version).
+
 ```bash
 composer install
 npm install
