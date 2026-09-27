@@ -3,9 +3,8 @@
 <footer class="bg-navy-deep text-white">
     <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4">
         <div>
-            <a href="{{ url('/') }}" class="flex items-center gap-2">
-                <x-logo-mark class="h-9 w-9" />
-                <span class="font-display text-lg font-semibold text-white">CONFOR'INO</span>
+            <a href="{{ url('/') }}" class="flex items-center">
+                <img src="{{ asset('images/logo-white.png') }}" alt="CONFOR'INO — Rénovation, agencement intérieur, accessibilité" class="h-12 w-auto">
             </a>
             <p class="mt-4 text-sm text-white/70">
                 Rénovation intérieure, agencement cuisine &amp; salle de bain et adaptation PMR à domicile,

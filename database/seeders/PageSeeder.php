@@ -106,6 +106,13 @@ class PageSeeder extends Seeder
                     ['icon' => 'renovation', 'title' => 'Rénovation intérieure', 'summary' => 'Plomberie, électricité, peinture, cloisons.', 'url' => '/services/renovation-interieure'],
                 ],
             ]),
+            $this->block('rich_text', [
+                'content' => "<h2>Une entreprise, quatre expertises complémentaires</h2>"
+                    ."<p>CONFOR'INO intervient à Argenteuil et dans tout le Val-d'Oise sur quatre types de projets : l'agencement de cuisine, l'agencement de salle de bain, l'aménagement PMR (accessibilité et sécurité à domicile) et la rénovation intérieure au sens large (plomberie, électricité, peinture, cloisons). Ces quatre prestations se recoupent souvent sur un même chantier — une salle de bain PMR implique par exemple de la plomberie et parfois de l'électricité — ce qui nous permet de proposer un devis unique et un seul interlocuteur, même lorsque plusieurs corps de métier interviennent.</p>"
+                    ."<h2>Une méthode identique quel que soit le projet</h2>"
+                    ."<p>Quelle que soit la prestation, notre démarche reste la même : une étude sur mesure de votre logement (et non un modèle standardisé), un devis détaillé et gratuit sans engagement, puis un chantier coordonné par un interlocuteur unique jusqu'à la réception des travaux. Cette organisation évite les intermédiaires multiples et les mauvaises surprises sur les délais ou le budget.</p>"
+                    ."<p>Toutes nos prestations sont couvertes par une assurance responsabilité civile professionnelle et une garantie décennale souscrites auprès de Groupama. Vous pouvez consulter le détail de chaque prestation ci-dessous, ou nous contacter directement pour un premier échange sur votre projet.</p>",
+            ]),
         ]);
 
         $this->page('a-propos', 'À propos', 'index,follow', 'WebPage', [

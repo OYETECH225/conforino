@@ -80,6 +80,20 @@
             <path d="M3 11h4l3-2 3 2 3-2 4 2M7 9l3 6h3.5M13 15l2-1M4 11v4l3 2M20 11v4l-3 2" />
             @break
 
+        @case('user')
+            <circle cx="12" cy="8" r="3.5" />
+            <path d="M5 20c0-3.9 3.1-6 7-6s7 2.1 7 6" />
+            @break
+
+        @case('mail')
+            <rect x="3" y="5" width="18" height="14" rx="1" />
+            <path d="m4 6.5 8 6 8-6" />
+            @break
+
+        @case('message')
+            <path d="M4 5h16v11H8l-4 4V5Z" />
+            @break
+
         @default
             <circle cx="12" cy="12" r="9" />
     @endswitch

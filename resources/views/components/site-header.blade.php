@@ -2,9 +2,8 @@
 
 <header class="border-b border-stone/30 bg-white" x-data="{ open: false }">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
-        <a href="{{ url('/') }}" class="flex items-center gap-2">
-            <x-logo-mark class="h-9 w-9" />
-            <span class="font-display text-lg font-semibold text-navy">CONFOR'INO</span>
+        <a href="{{ url('/') }}" class="flex items-center">
+            <img src="{{ asset('images/logo-color.png') }}" alt="CONFOR'INO — Rénovation, agencement intérieur, accessibilité" class="h-12 w-auto sm:h-14">
         </a>
 
         <nav class="hidden items-center gap-6 lg:flex" aria-label="Navigation principale">

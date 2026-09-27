@@ -109,7 +109,7 @@
                     Réponse sous 48h ouvrées, sans engagement.
                 </p>
             </div>
-            <div class="rounded-sm border border-stone/20 bg-white p-6 shadow-sm sm:p-8">
+            <div class="relative border border-stone/20 border-t-4 border-t-turquoise bg-white p-6 shadow-[0_20px_40px_-24px_rgba(30,54,100,0.25)] sm:p-8">
                 @livewire('contact-form')
             </div>
         </div>
