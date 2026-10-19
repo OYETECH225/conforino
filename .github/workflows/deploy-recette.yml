@@ -1,0 +1,97 @@
+name: Deploy recette
+
+# Construit l'application (vendor, assets Vite, assets Filament) et pousse le
+# resultat sur la branche `recette`, recuperee par le deploiement Git OVH.
+# Ne jamais commiter directement sur `recette` : elle est ecrasee a chaque deploiement.
+
+on:
+  workflow_run:
+    workflows: [Tests]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-recette
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    # Uniquement les push sur main de ce depot (jamais une PR venant d'un fork).
+    if: >-
+      github.event_name == 'workflow_dispatch' || (
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.event == 'push' &&
+        github.event.workflow_run.head_branch == 'main' &&
+        github.event.workflow_run.head_repository.full_name == github.repository
+      )
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # v2
+        with:
+          php-version: '8.4'
+          extensions: mbstring, gd, zip, intl
+          coverage: none
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Copy environment file
+        run: cp .env.example .env
+
+      - name: Install PHP dependencies (production)
+        run: composer install --no-dev --no-interaction --prefer-dist --no-progress --optimize-autoloader
+
+      - name: Publish Filament assets
+        run: php artisan filament:assets
+
+      - name: Build frontend assets
+        run: |
+          npm ci
+          npm run build
+
+      - name: Sync build into recette branch
+        env:
+          DEPLOY_DIR: ${{ runner.temp }}/recette
+        run: |
+          git clone --branch recette --single-branch \
+            "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "$DEPLOY_DIR"
+
+          rsync -a --delete --delete-excluded \
+            --filter='P /.git/' \
+            --exclude='/.git/' \
+            --exclude='/.github/' \
+            --exclude='/node_modules/' \
+            --exclude='/tests/' \
+            --exclude='/.env' \
+            --exclude='/public/hot' \
+            --exclude='/public/storage' \
+            ./ "$DEPLOY_DIR/"
+
+          # .gitignore propre a la branche deployee : vendor et build sont versionnes ici.
+          printf '%s\n' '.env' '/public/hot' '/public/storage' '/storage/*.key' '*.log' > "$DEPLOY_DIR/.gitignore"
+
+          SOURCE_SHA=$(git rev-parse --short HEAD)
+          cd "$DEPLOY_DIR"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Aucun changement a deployer."
+            exit 0
+          fi
+          git commit -m "deploy: ${SOURCE_SHA} depuis main"
+          git push origin recette

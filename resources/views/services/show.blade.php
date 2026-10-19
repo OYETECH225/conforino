@@ -3,62 +3,118 @@
     $heroSubtitle = $city
         ? ($pivot->local_intro ?: $service->short_description)
         : $service->short_description;
+    $locationLine = $city
+        ? ($city->postal_code ? "{$city->postal_code} • {$city->name} & Val-d'Oise" : "{$city->name} & Val-d'Oise")
+        : "Argenteuil (95) & Val-d'Oise";
+    $witnessRealisation = $realisations->first();
+
+    $breadcrumbBadges = $service->breadcrumb_badges ?: [
+        ['icon' => 'check', 'text' => 'Devis gratuit & sans engagement'],
+        ['icon' => 'shield', 'text' => 'Garantie décennale Groupama', 'solid' => true],
+    ];
 @endphp
 
-<x-layout :seo="$seo" :breadcrumbs="$breadcrumbs" :json-ld="$jsonLd" :show-breadcrumb="$showBreadcrumb">
+<x-layout :seo="$seo" :breadcrumbs="$breadcrumbs" :json-ld="$jsonLd" :show-breadcrumb="$showBreadcrumb" :breadcrumb-badges="$breadcrumbBadges">
 
-    <section class="border-b border-stone/20">
-        <div class="mx-auto grid max-w-7xl items-stretch gap-0 md:grid-cols-2">
-            <div class="order-2 aspect-[4/3] overflow-hidden bg-navy-tint md:order-1 md:aspect-auto">
-                @if($service->imageUrl())
-                    <img src="{{ $service->imageUrl() }}" alt="{{ $service->title }}@if($city) à {{ $city->name }}@endif" class="h-full w-full object-cover" loading="eager">
-                @else
-                    <x-blueprint-pattern label="Photo à venir" />
-                @endif
-            </div>
-            <div class="order-1 flex flex-col justify-center gap-6 px-4 py-14 sm:px-8 md:order-2 md:py-20 lg:px-16">
-                <x-brand-icon :name="$service->icon" class="h-10 w-10 text-turquoise-dark" />
-                <h1 class="font-display text-3xl font-semibold leading-tight text-navy sm:text-4xl">{{ $heroTitle }}</h1>
+    <section class="border-b border-stone/20 bg-white">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 md:grid-cols-2 md:py-20 lg:gap-16 lg:px-8">
+            <div class="flex flex-col gap-6">
+                <p class="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-navy/60">
+                    <span class="h-px w-6 bg-turquoise"></span>
+                    <x-brand-icon :name="$service->icon" class="h-4 w-4 shrink-0 text-turquoise-dark" />
+                    {{ $service->title }}
+                </p>
+
+                <h1 class="cote font-display text-3xl font-bold leading-tight text-navy sm:text-4xl">{{ $heroTitle }}</h1>
+
+                <p class="flex items-center gap-2 text-sm font-semibold text-navy/60">
+                    <span class="h-1.5 w-px bg-turquoise"></span>
+                    <span class="h-px w-16 bg-turquoise"></span>
+                    <span class="h-1.5 w-px bg-turquoise"></span>
+                    {{ $locationLine }}
+                </p>
+
                 @if($heroSubtitle)
                     <p class="max-w-md text-lg text-navy/80">{{ $heroSubtitle }}</p>
                 @endif
-                <div><a href="{{ route('page.show', 'contact') }}" class="btn-primary">Devis gratuit</a></div>
+
+                <div class="flex flex-wrap gap-3">
+                    <a href="{{ route('page.show', 'contact') }}" class="btn-primary">Recevoir mon devis gratuit →</a>
+                    <a href="{{ route('realisations.index') }}" class="inline-flex items-center justify-center gap-2 rounded-sm bg-navy-tint px-6 font-medium text-navy transition-colors hover:bg-navy-tint/70" style="min-height:44px">
+                        Voir nos réalisations
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <div class="relative aspect-[4/3] overflow-hidden bg-navy-tint sm:aspect-[16/11]">
+                    @if($service->imageUrl())
+                        <img src="{{ $service->imageUrl() }}" alt="{{ $service->title }}@if($city) à {{ $city->name }}@endif" class="h-full w-full object-cover" loading="eager">
+                    @else
+                        <x-blueprint-pattern label="Photo à venir" />
+                    @endif
+
+                    @if($service->corner_badge_text)
+                        <div class="absolute right-3 top-3 flex items-center gap-1.5 bg-navy-deep/90 px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-white">
+                            @if($service->corner_badge_icon)
+                                <x-brand-icon :name="$service->corner_badge_icon" class="h-3.5 w-3.5 shrink-0 text-turquoise" />
+                            @endif
+                            {{ $service->corner_badge_text }}
+                        </div>
+                    @endif
+
+                    @if($witnessRealisation)
+                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-deep/90 to-transparent p-4">
+                            <p class="text-xs font-semibold uppercase tracking-wide text-turquoise">
+                                Chantier témoin @if($witnessRealisation->city) • {{ $witnessRealisation->city->name }} @endif
+                            </p>
+                            <p class="font-display text-lg font-bold text-white">{{ $witnessRealisation->title }}</p>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
     </section>
 
     @if($service->long_description)
         <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-            <h2 class="cote font-display text-2xl font-semibold text-navy sm:text-3xl">Ce que nous faisons</h2>
+            <x-section-heading>Ce que nous faisons</x-section-heading>
             <div class="prose mt-6 max-w-none prose-headings:font-display prose-headings:text-navy prose-a:text-turquoise-dark">
                 {!! $service->long_description !!}
             </div>
         </section>
     @endif
 
-    <section class="bg-navy-deep py-16 text-white">
-        <div class="mx-auto max-w-6xl px-4 sm:px-6">
-            <h2 class="font-display text-2xl font-semibold sm:text-3xl"><span class="cote">Pourquoi CONFOR'INO</span></h2>
-            <div class="mt-12 grid gap-10 sm:grid-cols-3">
-                <div>
-                    <p class="font-serif text-4xl font-medium text-turquoise">13 ans</p>
-                    <p class="mt-2 text-[15px] text-white/75">d'expérience en rénovation et agencement</p>
+    {{-- Sections bespoke entièrement éditables depuis l'admin (corps de métier,
+         protocole, normes PMR, comparatifs...) --}}
+    <x-render-blocks :blocks="$service->activeBlocks" />
+
+    @if($witnessRealisation)
+        <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+            <x-section-heading eyebrow="Exemple de chantier">Un chantier récemment réalisé</x-section-heading>
+            <div class="mt-10 grid gap-10 md:grid-cols-2 md:items-center">
+                <div class="relative aspect-[4/3] overflow-hidden bg-navy-tint">
+                    <img src="{{ $witnessRealisation->afterUrl() }}" alt="{{ $witnessRealisation->title }}" class="h-full w-full object-cover" loading="lazy">
                 </div>
                 <div>
-                    <p class="font-serif text-4xl font-medium text-turquoise">200+</p>
-                    <p class="mt-2 text-[15px] text-white/75">projets et clients accompagnés</p>
-                </div>
-                <div>
-                    <p class="font-serif text-4xl font-medium text-turquoise">Décennale</p>
-                    <p class="mt-2 text-[15px] text-white/75">garantie &amp; RC professionnelle</p>
+                    <p class="text-xs font-semibold uppercase tracking-wide text-turquoise-dark">
+                        @if($witnessRealisation->city){{ $witnessRealisation->city->name }}@endif
+                    </p>
+                    <h3 class="mt-2 font-display text-xl font-bold text-navy">{{ $witnessRealisation->title }}</h3>
+                    @if($witnessRealisation->description)
+                        <p class="mt-4 text-[15px] leading-relaxed text-navy/80">{{ $witnessRealisation->description }}</p>
+                    @endif
+                    <a href="{{ route('realisations.show', $witnessRealisation->slug) }}" class="mt-4 inline-flex items-center gap-1 font-semibold text-turquoise-dark">
+                        Voir le chantier complet <span aria-hidden="true">→</span>
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 
     @if($realisations->isNotEmpty())
         <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-            <h2 class="cote font-display text-2xl font-semibold text-navy sm:text-3xl">Avant / après</h2>
+            <x-section-heading>Avant / après</x-section-heading>
             <div class="mt-10 grid gap-10 md:grid-cols-2">
                 @foreach($realisations as $realisation)
                     <x-before-after-slider :before="$realisation->beforeUrl()" :after="$realisation->afterUrl()" :caption="$realisation->title" />
@@ -70,9 +126,9 @@
     @if($otherCities->isNotEmpty())
         <section class="bg-navy-tint py-16">
             <div class="mx-auto max-w-5xl px-4 sm:px-6">
-                <h2 class="cote font-display text-2xl font-semibold text-navy sm:text-3xl">
+                <x-section-heading>
                     Zones desservies {{ $city ? 'autour de '.$city->name : '' }}
-                </h2>
+                </x-section-heading>
                 <ul class="mt-8 flex flex-wrap gap-3">
                     @foreach($otherCities as $otherCity)
                         <li>
@@ -88,9 +144,9 @@
     @endif
 
     @if($reviews->isNotEmpty())
-        <section class="bg-turquoise-tint py-16">
-            <div class="mx-auto max-w-5xl px-4 sm:px-6">
-                <h2 class="cote font-display text-2xl font-semibold text-navy sm:text-3xl">Nos clients s'expriment</h2>
+        <section class="bg-navy-tint py-16">
+            <div class="mx-auto max-w-6xl px-4 sm:px-6">
+                <x-section-heading align="center">Nos clients s'expriment</x-section-heading>
                 <x-testimonial-carousel :reviews="$reviews" />
             </div>
         </section>
@@ -102,16 +158,10 @@
     </section>
 
     <section class="bg-navy-tint py-16" id="devis">
-        <div class="mx-auto grid max-w-5xl gap-10 px-4 sm:px-6 md:grid-cols-2 md:items-start">
-            <div>
-                <h2 class="font-display text-2xl font-semibold text-navy sm:text-3xl">Recevez votre devis gratuit</h2>
-                <p class="mt-4 max-w-md text-navy/75">
-                    Réponse sous 48h ouvrées, sans engagement.
-                </p>
-            </div>
-            <div class="relative border border-stone/20 border-t-4 border-t-turquoise bg-white p-6 shadow-[0_20px_40px_-24px_rgba(30,54,100,0.25)] sm:p-8">
-                @livewire('contact-form')
-            </div>
-        </div>
+        <x-contact-card
+            eyebrow="Devis rapide & gratuit"
+            heading="Recevez votre devis gratuit"
+            intro="Réponse sous 48h ouvrées, sans engagement."
+        />
     </section>
 </x-layout>

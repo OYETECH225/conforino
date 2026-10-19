@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Database\Seeders\CitySeeder;
 use Database\Seeders\PageSeeder;
 use Database\Seeders\RedirectSeeder;
+use Database\Seeders\SanitaryServiceSeeder;
 use Database\Seeders\ServiceSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
@@ -18,7 +19,7 @@ class PublicSiteSmokeTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed([CitySeeder::class, ServiceSeeder::class, PageSeeder::class, RedirectSeeder::class]);
+        $this->seed([CitySeeder::class, ServiceSeeder::class, PageSeeder::class, SanitaryServiceSeeder::class, RedirectSeeder::class]);
     }
 
     #[DataProvider('publicPages')]
@@ -32,13 +33,16 @@ class PublicSiteSmokeTest extends TestCase
         return [
             ['/'],
             ['/services'],
-            ['/services/agencement-cuisine'],
-            ['/services/agencement-salle-de-bain'],
+            ['/services/renovation-salle-de-bain-cuisine'],
             ['/services/amenagement-pmr'],
             ['/services/amenagement-pmr-argenteuil'],
             ['/services/renovation-interieure'],
             ['/a-propos'],
             ['/realisations'],
+            ['/installation-sanitaire'],
+            ['/installation-sanitaire/tarifs'],
+            ['/installation-sanitaire/robinet-cuisine'],
+            ['/installation-sanitaire/pare-baignoire'],
             ['/zones-d-intervention'],
             ['/faq'],
             ['/contact'],
@@ -61,7 +65,7 @@ class PublicSiteSmokeTest extends TestCase
     public function test_legacy_url_redirects_permanently(): void
     {
         $this->get('/services/entreprise-cuisine-95/')
-            ->assertRedirect('/services/agencement-cuisine')
+            ->assertRedirect('/services/renovation-salle-de-bain-cuisine')
             ->assertStatus(301);
     }
 

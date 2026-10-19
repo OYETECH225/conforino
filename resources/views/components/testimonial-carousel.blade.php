@@ -9,19 +9,20 @@
 <div x-data="{ scrollBy(amount) { this.$refs.track.scrollBy({ left: amount, behavior: 'instant' }); } }" class="mt-10 min-w-0 max-w-full">
     <div
         x-ref="track"
-        class="flex min-w-0 max-w-full items-start gap-6 overflow-x-auto pb-2 snap-x snap-proximity scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        class="flex min-w-0 max-w-full touch-pan-x items-start gap-6 overflow-x-auto overscroll-x-contain pb-2 snap-x snap-proximity scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
         tabindex="0"
         role="region"
         aria-label="Avis clients (utilisez les flèches pour défiler)"
     >
         @foreach($reviews as $review)
-            <figure class="w-[85%] shrink-0 snap-start border-l-4 border-turquoise bg-white p-6 sm:w-[380px]">
+            <figure class="w-[85%] shrink-0 snap-start bg-white p-6 shadow-[0_16px_32px_-20px_rgba(30,54,100,0.25)] sm:w-[380px]">
                 <x-star-rating :rating="$review->rating" />
                 <blockquote class="mt-3 font-serif text-lg italic leading-relaxed text-navy">
                     « {{ $review->text }} »
                 </blockquote>
                 <figcaption class="mt-4 text-sm text-navy/70">
-                    {{ $review->author_name }}@if($review->cityName()), {{ $review->cityName() }}@endif
+                    <span class="font-semibold text-navy">{{ $review->author_name }}</span>
+                    @if($review->cityName())<br>{{ $review->cityName() }}@endif
                     @if($review->source === 'google') · Avis Google @endif
                     <span class="sr-only">— note {{ $review->rating }}/5</span>
                 </figcaption>

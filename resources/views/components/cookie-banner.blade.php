@@ -37,6 +37,13 @@
                     } catch (e) {
                         this.decided = true;
                     }
+
+                    // Permet de rouvrir le bandeau depuis le lien "Gérer mes cookies" du footer,
+                    // sans recharger la page (exigence CNIL : retrait aussi simple que le dépôt).
+                    window.addEventListener('reopen-cookie-banner', () => {
+                        try { localStorage.removeItem('cookie_consent'); } catch (e) {}
+                        this.decided = false;
+                    });
                 },
                 accept() {
                     try { localStorage.setItem('cookie_consent', 'accepted'); } catch (e) {}

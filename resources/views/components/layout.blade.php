@@ -3,10 +3,11 @@
     'breadcrumbs' => [],
     'jsonLd' => null,
     'showBreadcrumb' => true,
+    'breadcrumbBadges' => [],
 ])
 
 <!doctype html>
-<html lang="fr" class="scroll-smooth">
+<html lang="fr" class="touch-pan-y overflow-x-clip overflow-y-auto overscroll-x-none">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,7 +45,7 @@
     @filamentStyles
     @livewireStyles
 </head>
-<body class="overflow-x-hidden bg-white text-navy">
+<body class="touch-pan-y overflow-x-clip overflow-y-auto overscroll-x-none bg-white text-navy">
     <a href="#contenu" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-turquoise focus:text-white focus:px-4 focus:py-2">
         Aller au contenu
     </a>
@@ -52,7 +53,7 @@
     <x-site-header :nav-services="$navServices ?? []" :settings="$settings" />
 
     @if(($showBreadcrumb ?? true) && !empty($breadcrumbs) && count($breadcrumbs) > 1)
-        <x-breadcrumb :items="$breadcrumbs" />
+        <x-breadcrumb :items="$breadcrumbs" :badges="$breadcrumbBadges" />
     @endif
 
     <main id="contenu">

@@ -61,7 +61,7 @@ class RealMediaSeeder extends Seeder
         $realisations = [
             [
                 'title' => 'Cuisine ouverte sur mesure',
-                'service' => 'agencement-cuisine',
+                'service' => 'renovation-salle-de-bain-cuisine',
                 'city' => 'Argenteuil',
                 'photo' => 'cuisine-2.jpg',
                 'description' => "Conception et pose complète d'une cuisine ouverte sur le séjour, pensée pour un espace de vie lumineux et convivial. L'agencement en L a été optimisé pour libérer de la circulation autour de l'îlot central, avec des façades sombres contrastant avec un plan de travail clair. Raccordements plomberie et électricité, pose de l'électroménager et finitions ont été assurés de bout en bout par notre équipe.",
@@ -70,7 +70,7 @@ class RealMediaSeeder extends Seeder
             ],
             [
                 'title' => 'Salle de bain confort',
-                'service' => 'agencement-salle-de-bain',
+                'service' => 'renovation-salle-de-bain-cuisine',
                 'city' => 'Sannois',
                 'photo' => 'salle-de-bain-2.jpg',
                 'description' => "Rénovation complète d'une salle de bain avec remplacement de la baignoire par une douche à l'italienne, pose d'une faïence grand format et d'un meuble vasque sur mesure. Les réseaux de plomberie et l'étanchéité ont été entièrement repris avant la pose des revêtements, pour un résultat durable sur une petite surface.",

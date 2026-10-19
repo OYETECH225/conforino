@@ -45,6 +45,30 @@ class GeneralSettings extends Settings
 
     public ?string $gtm_id;
 
+    // Pied de page
+    public string $footer_tagline;
+
+    public string $footer_artisanat_label;
+
+    public string $guarantee_1_icon;
+
+    public string $guarantee_1_title;
+
+    public string $guarantee_1_subtitle;
+
+    public string $guarantee_2_icon;
+
+    public string $guarantee_2_title;
+
+    public string $guarantee_2_subtitle;
+
+    public string $deontology_text;
+
+    // Logos (chemins sur le disque public, remplace les fichiers statiques)
+    public ?string $logo_color_path;
+
+    public ?string $logo_white_path;
+
     public static function group(): string
     {
         return 'general';

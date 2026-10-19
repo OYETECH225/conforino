@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\Services\Schemas;
 
+use App\Filament\Support\BlocksBuilder;
 use App\Support\Icons;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
@@ -43,6 +45,7 @@ class ServiceForm
                                     ->native(false),
                                 SpatieMediaLibraryFileUpload::make('image')
                                     ->collection('image')
+                                    ->disk('public')
                                     ->image()
                                     ->label('Photo principale'),
                                 Textarea::make('short_description')
@@ -54,6 +57,27 @@ class ServiceForm
                                     ->label('Description longue (page service)')
                                     ->columnSpanFull(),
                             ])->columns(2),
+
+                        Tab::make('Sections additionnelles')
+                            ->schema([
+                                Select::make('corner_badge_icon')->label('Icône du badge sur la photo (optionnel)')->options(Icons::options()),
+                                TextInput::make('corner_badge_text')->label('Texte du badge sur la photo (ex : "Tous corps d\'état")'),
+
+                                Repeater::make('breadcrumb_badges')
+                                    ->label('Badges sous le fil d\'Ariane')
+                                    ->schema([
+                                        Select::make('icon')->label('Icône')->options(Icons::options())->required(),
+                                        TextInput::make('text')->label('Texte')->required(),
+                                        Toggle::make('solid')->label('Badge plein (foncé) plutôt que contour'),
+                                    ])->columns(3)
+                                    ->reorderableWithButtons()
+                                    ->columnSpanFull()
+                                    ->helperText('Ex : "Devis gratuit & sans engagement", "Garantie décennale Groupama".'),
+
+                                BlocksBuilder::make()
+                                    ->label('Sections supplémentaires sur cette page service')
+                                    ->helperText('Insérées entre la description longue et le bandeau "Pourquoi CONFOR\'INO". Utilisez par exemple "Grille de points forts" pour les corps de métier, "Parcours" pour un protocole en étapes, "Normes PMR illustrées" ou "Tableau comparatif".'),
+                            ]),
 
                         Tab::make('SEO')
                             ->schema([

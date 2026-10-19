@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Filament\Resources\Pages\Concerns;
+namespace App\Filament\Concerns;
 
-use App\Models\Block;
-use App\Models\Page;
+use Illuminate\Database\Eloquent\Model;
 
 /**
- * Le champ Builder "blocks" du formulaire n'est pas une colonne du modèle Page :
+ * Le champ Builder "blocks" du formulaire n'est pas une colonne du modèle :
  * il est retiré des données avant sauvegarde puis synchronisé manuellement vers
  * la table `blocks` (une ligne par bloc, avec type/data/order), ce qui permet
- * de garder un historique propre et des requêtes simples côté front.
+ * de garder un historique propre et des requêtes simples côté front. Partagé
+ * entre Pages et Services (relation polymorphique HasBlocks sur les deux).
  */
-trait SyncsPageBlocks
+trait SyncsBlocks
 {
     protected ?array $pendingBlocks = null;
 
@@ -23,12 +23,12 @@ trait SyncsPageBlocks
         return $data;
     }
 
-    protected function persistBlocks(Page $page): void
+    protected function persistBlocks(Model $record): void
     {
-        $page->blocks()->delete();
+        $record->blocks()->delete();
 
         foreach ($this->pendingBlocks ?? [] as $index => $item) {
-            $page->blocks()->create([
+            $record->blocks()->create([
                 'type' => $item['type'],
                 'data' => $item['data'] ?? [],
                 'order' => $index,

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasBlocks;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -13,22 +14,25 @@ use Spatie\Sluggable\SlugOptions;
 
 class Service extends Model implements HasMedia
 {
-    use HasFactory, HasSlug, InteractsWithMedia;
+    use HasBlocks, HasFactory, HasSlug, InteractsWithMedia;
 
     protected $fillable = [
-        'title', 'slug', 'short_description', 'long_description', 'icon',
+        'title', 'slug', 'short_description', 'long_description', 'icon', 'breadcrumb_badges',
+        'corner_badge_icon', 'corner_badge_text',
         'is_active', 'order', 'meta_title', 'meta_description', 'canonical_url', 'robots',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
+        'breadcrumb_badges' => 'array',
     ];
 
     public function getSlugOptions(): SlugOptions
     {
         return SlugOptions::create()
             ->generateSlugsFrom('title')
-            ->saveSlugsTo('slug');
+            ->saveSlugsTo('slug')
+            ->doNotGenerateSlugsOnUpdate();
     }
 
     public function registerMediaCollections(): void

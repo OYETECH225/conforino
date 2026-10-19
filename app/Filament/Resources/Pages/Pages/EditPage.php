@@ -2,14 +2,14 @@
 
 namespace App\Filament\Resources\Pages\Pages;
 
-use App\Filament\Resources\Pages\Concerns\SyncsPageBlocks;
+use App\Filament\Concerns\SyncsBlocks;
 use App\Filament\Resources\Pages\PageResource;
 use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditPage extends EditRecord
 {
-    use SyncsPageBlocks;
+    use SyncsBlocks;
 
     protected static string $resource = PageResource::class;
 

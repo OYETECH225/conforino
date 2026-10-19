@@ -6,6 +6,7 @@ use App\Models\ContactRequest;
 use App\Notifications\NewContactRequestNotification;
 use App\Settings\GeneralSettings;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Validation\Rule;
 use Livewire\Component;
 
 class ContactForm extends Component
@@ -17,6 +18,10 @@ class ContactForm extends Component
     public string $email = '';
 
     public string $city = '';
+
+    public string $propertyType = '';
+
+    public string $surface = '';
 
     public string $message = '';
 
@@ -35,6 +40,8 @@ class ContactForm extends Component
             'phone' => ['required', 'string', 'max:20'],
             'email' => ['nullable', 'email', 'max:190'],
             'city' => ['nullable', 'string', 'max:120'],
+            'propertyType' => ['nullable', 'string', Rule::in(array_keys(ContactRequest::PROPERTY_TYPES))],
+            'surface' => ['nullable', 'string', 'max:20'],
             'message' => ['nullable', 'string', 'max:2000'],
             'consent' => ['accepted'],
         ];
@@ -56,6 +63,8 @@ class ContactForm extends Component
             'phone' => $this->phone,
             'email' => $this->email ?: null,
             'city' => $this->city ?: null,
+            'property_type' => $this->propertyType ?: null,
+            'surface' => $this->surface ?: null,
             'message' => $this->message ?: null,
             'source_url' => url()->previous(),
             'consented_at' => now(),
@@ -68,7 +77,7 @@ class ContactForm extends Component
                 ->notify(new NewContactRequestNotification($contactRequest));
         }
 
-        $this->reset(['name', 'phone', 'email', 'city', 'message', 'consent']);
+        $this->reset(['name', 'phone', 'email', 'city', 'propertyType', 'surface', 'message', 'consent']);
         $this->submitted = true;
     }
 

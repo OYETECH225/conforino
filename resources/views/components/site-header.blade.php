@@ -3,7 +3,7 @@
 <header class="border-b border-stone/30 bg-white" x-data="{ open: false }">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
         <a href="{{ url('/') }}" class="flex items-center">
-            <img src="{{ asset('images/logo-color.png') }}" alt="CONFOR'INO — Rénovation, agencement intérieur, accessibilité" class="h-12 w-auto sm:h-14">
+            <img src="{{ $settings->logo_color_path ? Illuminate\Support\Facades\Storage::disk('public')->url($settings->logo_color_path) : asset('images/logo-color.png') }}" alt="CONFOR'INO — Rénovation, agencement intérieur, accessibilité" class="h-12 w-auto sm:h-14">
         </a>
 
         <nav class="hidden items-center gap-6 lg:flex" aria-label="Navigation principale">
@@ -12,6 +12,9 @@
                     Services
                 </a>
                 <div class="invisible absolute left-0 top-full z-20 w-72 rounded-sm border border-stone/20 bg-white py-2 opacity-0 shadow-lg transition group-hover:visible group-hover:opacity-100">
+                    <a href="{{ route('sanitary-services.index') }}" class="block px-4 py-2 text-[15px] text-navy hover:bg-navy-tint">
+                        Plomberie &amp; installation sanitaire
+                    </a>
                     @foreach($navServices as $service)
                         <a href="{{ route('services.show', $service->slug) }}" class="block px-4 py-2 text-[15px] text-navy hover:bg-navy-tint">
                             {{ $service->title }}
@@ -43,6 +46,7 @@
     <div x-show="open" x-cloak class="border-t border-stone/20 lg:hidden">
         <nav class="flex flex-col px-4 py-3" aria-label="Navigation mobile">
             <a href="{{ route('services.index') }}" class="py-3 font-display text-navy" style="min-height:44px">Services</a>
+            <a href="{{ route('sanitary-services.index') }}" class="py-2 pl-4 text-[15px] text-navy" style="min-height:44px">Plomberie &amp; installation sanitaire</a>
             @foreach($navServices as $service)
                 <a href="{{ route('services.show', $service->slug) }}" class="py-2 pl-4 text-[15px] text-navy" style="min-height:44px">{{ $service->title }}</a>
             @endforeach

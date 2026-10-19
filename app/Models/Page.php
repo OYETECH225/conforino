@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Concerns\HasBlocks;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Sluggable\HasSlug;
@@ -12,10 +12,10 @@ use Spatie\Sluggable\SlugOptions;
 
 class Page extends Model implements HasMedia
 {
-    use HasFactory, HasSlug, InteractsWithMedia;
+    use HasBlocks, HasFactory, HasSlug, InteractsWithMedia;
 
     protected $fillable = [
-        'title', 'slug', 'breadcrumb_title', 'status',
+        'title', 'slug', 'breadcrumb_title', 'status', 'template',
         'meta_title', 'meta_description', 'canonical_url', 'robots', 'schema_type',
         'show_breadcrumb', 'published_at',
     ];
@@ -38,16 +38,6 @@ class Page extends Model implements HasMedia
         $this->addMediaCollection('og_image')->singleFile();
     }
 
-    public function blocks(): HasMany
-    {
-        return $this->hasMany(Block::class)->orderBy('order');
-    }
-
-    public function activeBlocks(): HasMany
-    {
-        return $this->blocks()->where('is_active', true);
-    }
-
     public function scopePublished($query)
     {
         return $query->where('status', 'published');
@@ -56,6 +46,11 @@ class Page extends Model implements HasMedia
     public function isPublished(): bool
     {
         return $this->status === 'published';
+    }
+
+    public function isLandingTemplate(): bool
+    {
+        return $this->template === 'landing';
     }
 
     public function metaTitle(): string
