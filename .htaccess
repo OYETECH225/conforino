@@ -1,0 +1,9 @@
+# Filet de securite si la racine du (sous-)domaine pointe sur le projet au lieu de public/ :
+# tout est servi depuis public/, le code source et .git ne sont jamais accessibles.
+# Ignore quand la racine pointe deja sur public/ (configuration normale).
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
