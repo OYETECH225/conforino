@@ -1,35 +1,53 @@
-@php $heading = $block->get('heading'); $steps = $block->get('steps', []); @endphp
+@php
+    $eyebrow = $block->get('eyebrow');
+    $heading = $block->get('heading');
+    $steps = $block->get('steps', []);
+    $trustItems = $block->get('trust_items', []);
+@endphp
 
-{{-- Seul endroit du site avec une numérotation 01/02/03 : le parcours client
-     est une vraie séquence, contrairement aux cartes de services ou aux
-     chiffres clés qui n'en ont pas besoin. --}}
 @if(!empty($steps))
-    <section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
-        @if($heading)
-            <h2 class="cote font-display text-2xl font-semibold text-navy sm:text-3xl">{{ $heading }}</h2>
-        @endif
+    <section class="bg-navy-tint py-16">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6">
+            @if($heading)
+                <x-section-heading :eyebrow="$eyebrow">{{ $heading }}</x-section-heading>
+            @endif
 
-        <div class="mt-12 grid gap-10 sm:grid-cols-3">
-            @foreach($steps as $index => $step)
-                <div class="relative">
-                    <span class="font-serif text-3xl font-medium text-turquoise">{{ sprintf('%02d', $index + 1) }}</span>
-                    <h3 class="mt-3 font-display text-lg font-semibold text-navy">{{ $step['title'] ?? '' }}</h3>
-                    @if(!empty($step['points']))
-                        <ul class="mt-3 space-y-2 text-[15px] text-navy/75">
-                            @foreach($step['points'] as $point)
-                                <li class="flex gap-2">
-                                    <span class="mt-2 h-1 w-1 shrink-0 rounded-full bg-turquoise"></span>
-                                    {{ is_array($point) ? ($point['point'] ?? '') : $point }}
-                                </li>
-                            @endforeach
-                        </ul>
-                    @endif
+            <div class="mt-10 grid gap-6 sm:grid-cols-3">
+                @foreach($steps as $index => $step)
+                    <div class="reveal reveal-delay-{{ min($index + 1, 5) }} relative bg-white p-6">
+                        <div class="h-1 w-10 bg-turquoise"></div>
+                        <p class="mt-5 flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-navy/60">
+                            @if(!empty($step['icon']))
+                                <x-brand-icon :name="$step['icon']" class="h-4 w-4 shrink-0 text-turquoise-dark" />
+                            @endif
+                            Phase {{ sprintf('%02d', $index + 1) }}
+                        </p>
+                        <h3 class="mt-2 font-display text-lg font-bold text-navy">{{ $step['title'] ?? '' }}</h3>
+                        @if(!empty($step['description']))
+                            <p class="mt-3 text-[15px] leading-relaxed text-navy/75">{{ $step['description'] }}</p>
+                        @endif
+                        @if(!empty($step['proof']))
+                            <p class="mt-4 flex items-center gap-1.5 text-sm font-medium text-turquoise-dark">
+                                {{ $step['proof'] }}
+                                <x-brand-icon name="check" class="h-4 w-4 shrink-0" />
+                            </p>
+                        @endif
+                    </div>
+                @endforeach
+            </div>
 
-                    @if(!$loop->last)
-                        <div class="absolute right-[-1.25rem] top-2 hidden h-px w-10 bg-stone/40 sm:block"></div>
-                    @endif
+            @if(!empty($trustItems))
+                <div class="mt-6 grid gap-6 bg-white p-6 sm:grid-cols-2 lg:grid-cols-4">
+                    @foreach($trustItems as $item)
+                        <div class="flex items-start gap-3">
+                            <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-navy-tint">
+                                <x-brand-icon :name="$item['icon'] ?? 'check'" class="h-5 w-5 text-turquoise-dark" />
+                            </span>
+                            <span class="text-[15px] text-navy/80">{{ $item['text'] ?? '' }}</span>
+                        </div>
+                    @endforeach
                 </div>
-            @endforeach
+            @endif
         </div>
     </section>
 @endif

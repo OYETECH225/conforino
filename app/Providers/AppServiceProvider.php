@@ -26,5 +26,9 @@ class AppServiceProvider extends ServiceProvider
             $view->with('settings', app(GeneralSettings::class));
             $view->with('navServices', Service::query()->active()->ordered()->get());
         });
+
+        View::composer('components.landing-layout', function ($view) {
+            $view->with('settings', app(GeneralSettings::class));
+        });
     }
 }

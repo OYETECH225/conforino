@@ -28,11 +28,13 @@ class RealisationForm
 
                 SpatieMediaLibraryFileUpload::make('before')
                     ->collection('before')
+                    ->disk('public')
                     ->image()
                     ->required()
                     ->label('Photo "avant"'),
                 SpatieMediaLibraryFileUpload::make('after')
                     ->collection('after')
+                    ->disk('public')
                     ->image()
                     ->required()
                     ->label('Photo "après"'),

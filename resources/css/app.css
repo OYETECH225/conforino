@@ -40,10 +40,6 @@
 }
 
 @layer base {
-    html {
-        scroll-behavior: smooth;
-    }
-
     @media (prefers-reduced-motion: reduce) {
         html {
             scroll-behavior: auto;
@@ -77,6 +73,26 @@
 }
 
 @layer components {
+    /* Apparition discrète au scroll (IntersectionObserver dans app.js ajoute
+       .is-visible). Les éléments déjà visibles à l'affichage initial, ou si
+       JS est indisponible, restent visibles par défaut via noscript ci-dessous. */
+    .reveal {
+        opacity: 0;
+        transform: translateY(1rem);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+
+    .reveal.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+    .reveal-delay-5 { transition-delay: 0.4s; }
+
     /* Ligne de cote d'architecte : trait fin + amorces verticales aux extrémités,
        utilisée pour souligner les titres de section et présenter les chiffres clés. */
     .cote {
@@ -99,6 +115,44 @@
         content: '';
         position: absolute;
         left: 0;
+        bottom: -3px;
+        height: 8px;
+        width: 2px;
+        background: var(--color-turquoise);
+    }
+
+    /* Variante centrée (mêmes amorces, mais de part et d'autre du trait) : sections
+       à en-tête centré (témoignages, FAQ). */
+    .cote-center {
+        position: relative;
+        display: inline-block;
+        padding-bottom: 0.75rem;
+    }
+
+    .cote-center::after {
+        content: '';
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        height: 2px;
+        width: 3rem;
+        transform: translateX(-50%);
+        background: var(--color-turquoise);
+    }
+
+    .cote-center::before {
+        content: '';
+        position: absolute;
+        left: calc(50% - 1.5rem);
+        bottom: -3px;
+        height: 8px;
+        width: 2px;
+        background: var(--color-turquoise);
+    }
+
+    .cote-center .tick-right {
+        position: absolute;
+        right: calc(50% - 1.5rem);
         bottom: -3px;
         height: 8px;
         width: 2px;

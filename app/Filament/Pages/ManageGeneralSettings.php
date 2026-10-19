@@ -3,7 +3,10 @@
 namespace App\Filament\Pages;
 
 use App\Settings\GeneralSettings;
+use App\Support\Icons;
 use BackedEnum;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\SettingsPage;
@@ -58,6 +61,46 @@ class ManageGeneralSettings extends SettingsPage
                                 TextInput::make('opening_hours')
                                     ->label('Horaires')
                                     ->required(),
+                            ])->columns(2),
+
+                        Tab::make('Logo')
+                            ->schema([
+                                FileUpload::make('logo_color_path')
+                                    ->label('Logo couleur (en-tête)')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('branding')
+                                    ->helperText('Laisser vide pour garder le logo par défaut.'),
+                                FileUpload::make('logo_white_path')
+                                    ->label('Logo blanc (pied de page)')
+                                    ->image()
+                                    ->disk('public')
+                                    ->directory('branding')
+                                    ->helperText('Laisser vide pour garder le logo par défaut.'),
+                            ])->columns(2),
+
+                        Tab::make('Pied de page')
+                            ->schema([
+                                Textarea::make('footer_tagline')
+                                    ->label('Texte de présentation')
+                                    ->required()
+                                    ->rows(2)
+                                    ->columnSpanFull(),
+                                TextInput::make('footer_artisanat_label')
+                                    ->label('Étiquette sous le logo (ex : "Artisanat & maîtrise d\'œuvre")')
+                                    ->required()
+                                    ->columnSpanFull(),
+                                Select::make('guarantee_1_icon')->label('Icône garantie 1')->options(Icons::options())->required(),
+                                TextInput::make('guarantee_1_title')->label('Titre garantie 1')->required(),
+                                TextInput::make('guarantee_1_subtitle')->label('Sous-titre garantie 1')->required(),
+                                Select::make('guarantee_2_icon')->label('Icône garantie 2')->options(Icons::options())->required(),
+                                TextInput::make('guarantee_2_title')->label('Titre garantie 2')->required(),
+                                TextInput::make('guarantee_2_subtitle')->label('Sous-titre garantie 2')->required(),
+                                Textarea::make('deontology_text')
+                                    ->label('Encart engagement déontologique')
+                                    ->required()
+                                    ->rows(2)
+                                    ->columnSpanFull(),
                             ])->columns(2),
 
                         Tab::make('Réseaux sociaux')

@@ -27,50 +27,90 @@ class PageSeeder extends Seeder
 
         $this->page('accueil', 'Accueil', 'index,follow', 'LocalBusiness', [
             $this->block('hero', [
+                'eyebrow' => "Rénovation architecturale & adaptation PMR • Argenteuil (95)",
                 'heading' => "CONFOR'INO réalise vos projets de salle de bain, de douche sécurisée et d'adaptation PMR",
                 'subheading' => "Entreprise de rénovation basée à Argenteuil, nous accompagnons particuliers et professionnels dans leurs projets de salle de bain, d'adaptation PMR et de rénovation intérieure — un accompagnement attentif, du premier échange aux dernières finitions.",
                 'image' => $this->seedImage('hero-homepage.webp'),
+                'proof_line' => 'Sans engagement · Réponse sous 24-48h · Diagnostic sur place gratuit',
                 'cta_label' => 'Recevoir mon devis gratuit',
                 'cta_url' => '/contact',
+                'cta2_label' => 'Découvrir nos réalisations',
+                'cta2_url' => '/realisations',
+                'strip_icon' => 'pmr',
+                'strip_text' => 'Douche de plain-pied sans seuil · Receveur extra-plat',
+                'strip_badge' => 'Accessibilité PMR',
             ]),
             $this->block('process', [
+                'eyebrow' => 'Savoir-faire architectural',
                 'heading' => 'Notre méthode',
                 'steps' => [
                     [
+                        'icon' => 'ruler',
                         'title' => 'Étude personnalisée',
-                        'points' => ['Analyse de votre espace', 'Conseils adaptés à vos besoins', 'Solutions esthétiques et fonctionnelles'],
+                        'description' => "Analyse technique rigoureuse à domicile, relevé des contraintes d'accessibilité PMR, écoute des habitudes de vie et modélisation sur mesure adaptée à votre budget.",
+                        'proof' => "Visite d'évaluation sous 48h",
                     ],
                     [
+                        'icon' => 'handshake',
                         'title' => 'Projet clé en main',
-                        'points' => ['Conception et choix des équipements', 'Coordination complète des travaux', 'Un interlocuteur unique'],
+                        'description' => "Un interlocuteur unique de la conception à la réception du chantier. Prise en charge intégrale : démolition, plomberie sanitaire, carrelage antidérapant, électricité et finitions soignées.",
+                        'proof' => 'Zéro sous-traitance non déclarée',
                     ],
                     [
+                        'icon' => 'pmr',
                         'title' => 'Confort & autonomie',
-                        'points' => ['Aménagements accessibles et sécurisés', 'Circulation facilitée au quotidien', 'Un résultat durable et élégant'],
+                        'description' => 'Conception ergonomique sans compromis esthétique. Équipements certifiés, barres de maintien design intégrées, seuil zéro et valorisation durable de votre habitat.',
+                        'proof' => 'Confort et sécurité durables',
+                    ],
+                ],
+                'trust_items' => [
+                    ['icon' => 'check', 'text' => 'Devis gratuit & détaillé sans surprise'],
+                    ['icon' => 'clock', 'text' => 'Réponse garantie sous 24h à 48h'],
+                    ['icon' => 'pin', 'text' => 'Entreprise locale basée à Argenteuil (95)'],
+                    ['icon' => 'shield', 'text' => 'Assurance RC Pro & Garantie décennale'],
+                ],
+            ]),
+            $this->block('services_grid', [
+                'eyebrow' => 'Savoir-faire architectural',
+                'heading' => 'Nos expertises métier',
+                'intro' => "De l'aménagement spécialisé d'espaces de bain sécurisés aux réhabilitations complètes, nous allions technique exigeante et élégance d'agencement.",
+                'items' => [
+                    [
+                        'is_info_card' => true,
+                        'icon' => 'plumbing',
+                        'title' => 'Plomberie & Installation Sanitaire',
+                        'info_label' => 'Prix fixes, à la demande',
+                        'info_value' => 'Robinetterie, WC, receveur…',
+                        'summary' => "Installation, remplacement et dépannage de vos équipements sanitaires à Argenteuil et dans le Val-d'Oise.",
+                        'url' => '/installation-sanitaire',
+                    ],
+                    ['icon' => 'bathroom', 'title' => 'Rénovation Salle de Bain & Cuisine', 'tag' => 'Agencement Sur Mesure', 'image' => $this->seedImage('salle-de-bain-1.jpg'), 'summary' => 'Nous concevons et rénovons des salles de bain et cuisine fonctionnelles, durables et adaptées à vos besoins, à votre espace et à votre budget.', 'url' => '/services/renovation-salle-de-bain-cuisine'],
+                    ['icon' => 'pmr', 'title' => 'Douche Sécurisée & Salle de Bain PMR', 'tag' => 'PMR & Autonomie', 'image' => $this->seedImage('pmr-1.jpg'), 'summary' => "Nous adaptons votre salle de bain pour améliorer le confort, l'accessibilité et la sécurité : douche accessible, barres d'appui, siège de douche et équipements adaptés.", 'url' => '/services/amenagement-pmr'],
+                    [
+                        'is_info_card' => true,
+                        'icon' => 'shield',
+                        'title' => 'Rénovation Intérieure Générale',
+                        'info_label' => "Tous corps d'état",
+                        'info_value' => 'Plomberie, électricité, peinture',
+                        'summary' => 'Reprise complète plomberie, électricité aux normes, peintures écologiques dépolluantes, réfection des sols et menuiseries sur mesure.',
+                        'url' => '/services/renovation-interieure',
                     ],
                 ],
             ]),
             $this->block('stats', [
-                'heading' => 'Pourquoi nous choisir',
+                'eyebrow' => 'Artisanat engagé & proximité',
+                'heading' => 'Une approche humaine et rigoureuse au service de votre sérénité.',
+                'intro' => "Installée au cœur d'Argenteuil, l'entreprise CONFOR'INO est née d'une conviction fondamentale : l'adaptation du domicile pour les personnes fragilisées et les aînés ne doit jamais ressembler à une hospitalisation. Nous concevons des pièces de vie sécurisées, ergonomiques et chaleureuses qui valorisent votre bien.\n\nNous accompagnons personnellement les familles et les aidants à chaque étape, en éliminant les intermédiaires superflus et en refusant catégoriquement les prestations standardisées sans âme.",
+                'proof_items' => ['Qualité artisanale', 'Assuré Groupama', 'Délais tenus'],
                 'items' => [
-                    ['value' => '13 ans', 'label' => "d'expérience en rénovation et agencement"],
-                    ['value' => '200+', 'label' => 'projets et clients accompagnés'],
-                    ['value' => 'Décennale', 'label' => 'garantie sur tous nos chantiers'],
-                    ['value' => 'RC Pro', 'label' => 'assurance responsabilité civile professionnelle'],
+                    ['value' => '200+', 'label' => "Projets et familles accompagnés dans le Val-d'Oise", 'description' => 'Argenteuil, Cormeilles, Sannois, Cergy et communes limitrophes.'],
+                    ['value' => '13 ans', 'label' => "D'expérience métier & d'exigence artisanale", 'description' => 'Expertise certifiée en plomberie sanitaire, étanchéité et mise en accessibilité.'],
                 ],
             ]),
-            $this->block('services_grid', [
-                'heading' => 'Nos expertises',
-                'items' => [
-                    ['icon' => 'kitchen', 'title' => 'Agencement cuisine', 'summary' => 'Cuisines sur mesure, conception et pose complète.', 'url' => '/services/agencement-cuisine'],
-                    ['icon' => 'bathroom', 'title' => 'Agencement salle de bain', 'summary' => "Création ou rénovation de salle de bain clé en main.", 'url' => '/services/agencement-salle-de-bain'],
-                    ['icon' => 'pmr', 'title' => 'Aménagement PMR', 'summary' => "Douches sécurisées, barres d'appui, accessibilité.", 'url' => '/services/amenagement-pmr'],
-                    ['icon' => 'renovation', 'title' => 'Rénovation intérieure', 'summary' => 'Plomberie, électricité, peinture, cloisons.', 'url' => '/services/renovation-interieure'],
-                ],
-            ]),
-            $this->block('gallery_preview', ['heading' => 'Nos réalisations', 'count' => 4]),
+            $this->block('gallery_preview', ['eyebrow' => 'Galerie chantier', 'heading' => 'Nos réalisations récentes', 'count' => 4]),
             $this->block('testimonials', [
-                'heading' => "Nos clients s'expriment",
+                'eyebrow' => 'Témoignages vérifiés',
+                'heading' => 'La confiance de nos clients et de leurs familles',
                 'review_ids' => Review::query()->published()->pluck('id')->all(),
             ]),
             $this->block('service_areas', [
@@ -79,6 +119,7 @@ class PageSeeder extends Seeder
                 'city_ids' => City::query()->active()->pluck('id')->all(),
             ]),
             $this->block('faq', [
+                'eyebrow' => 'Réponses claires',
                 'heading' => 'Questions fréquentes',
                 'items' => [
                     ['question' => 'Réalisez-vous des salles de bain PMR et douches sécurisées ?', 'answer' => "<p>Oui. CONFOR'INO réalise l'adaptation de salles de bain PMR, l'installation de douches sécurisées, la pose de barres d'appui et le remplacement de baignoires par des douches accessibles.</p>"],
@@ -88,27 +129,128 @@ class PageSeeder extends Seeder
                 ],
             ]),
             $this->block('contact_form', [
-                'heading' => 'Recevez votre devis personnalisé',
-                'intro' => 'Décrivez votre projet, nous revenons vers vous sous 48h ouvrées.',
+                'eyebrow' => 'Devis rapide & gratuit',
+                'heading' => 'Parlez-nous de votre projet de rénovation ou d\'adaptation',
+                'intro' => "Recevez une première estimation détaillée sous 24h à 48h ouvrées. Un technicien peut se déplacer chez vous à Argenteuil ou dans le 95 sans aucun frais.",
             ]),
         ]);
+
+        // Page de destination pour les campagnes Google Ads : gabarit "landing"
+        // (sans menu ni pied de page complets, cf. x-landing-layout), noindex
+        // pour ne pas entrer en concurrence SEO avec les pages du site, et
+        // contenu assemblé à partir des mêmes blocs/chiffres/avis déjà utilisés
+        // ailleurs sur le site (aucune donnée inventée pour l'occasion).
+        $featuredReviewIds = Review::query()->published()->featured()->ordered()->limit(3)->pluck('id')->all();
+
+        $this->page('devis-gratuit-argenteuil', 'Devis gratuit — Rénovation, PMR, cuisine & salle de bain', 'noindex,follow', 'WebPage', [
+            $this->block('hero', [
+                'eyebrow' => 'Offre réservée aux demandes en ligne',
+                'heading' => 'Devis gratuit pour vos travaux à Argenteuil et dans le Val-d\'Oise',
+                'subheading' => "Salle de bain, cuisine, aménagement PMR ou rénovation complète : recevez une étude personnalisée et un devis gratuit, sans engagement.",
+                'image' => $this->seedImage('hero-homepage.webp'),
+                'proof_line' => 'Sans engagement · Réponse sous 24-48h · Diagnostic sur place gratuit',
+                'cta_label' => 'Recevoir mon devis gratuit',
+                'cta_url' => '#devis',
+            ]),
+            $this->block('contact_form', [
+                'eyebrow' => 'Étude gratuite & sans engagement',
+                'heading' => 'Demandez votre devis gratuit',
+                'intro' => "Un interlocuteur unique vous recontacte rapidement pour qualifier votre projet et convenir d'une visite technique si nécessaire.",
+            ]),
+            $this->block('stats', [
+                'heading' => "Pourquoi CONFOR'INO",
+                'items' => [
+                    ['value' => '13 ans', 'label' => "d'expérience en rénovation et agencement"],
+                    ['value' => '200+', 'label' => 'projets et clients accompagnés'],
+                    ['value' => 'Décennale', 'label' => 'garantie & RC professionnelle'],
+                ],
+            ]),
+            $this->block('testimonials', [
+                'eyebrow' => 'Avis clients',
+                'heading' => 'Ce que disent nos clients du Val-d\'Oise',
+                'review_ids' => $featuredReviewIds,
+            ]),
+            $this->block('faq', [
+                'eyebrow' => 'Réponses claires',
+                'heading' => 'Vos questions avant de nous contacter',
+                'items' => [
+                    ['question' => 'Réalisez-vous des salles de bain PMR et douches sécurisées ?', 'answer' => "<p>Oui. CONFOR'INO réalise l'adaptation de salles de bain PMR, l'installation de douches sécurisées, la pose de barres d'appui et le remplacement de baignoires par des douches accessibles.</p>"],
+                    ['question' => 'Le devis de rénovation est-il gratuit ?', 'answer' => '<p>Oui. Chaque projet fait l\'objet d\'une première étude et d\'un devis gratuit, sans engagement. Une visite technique peut être nécessaire pour confirmer la faisabilité et le prix.</p>'],
+                    ['question' => 'Dans quelles villes intervenez-vous ?', 'answer' => "<p>Nous intervenons à {$cityList}, ainsi que dans les autres communes du Val-d'Oise sur demande.</p>"],
+                    ['question' => 'Les travaux sont-ils couverts par une garantie ?', 'answer' => '<p>Oui. Nos prestations sont couvertes par une assurance responsabilité civile professionnelle et une garantie décennale (Groupama).</p>'],
+                ],
+            ]),
+        ], showBreadcrumb: false, template: 'landing');
+
+        // Page hidden content for the "Plomberie & installation sanitaire"
+        // section (reprise de l'ancienne page /installation-sanitaire-val-doise/
+        // ajoutée par le client) : hero, bénéfices et étapes, gérés comme une
+        // Page CMS cachée au même titre que "realisations" ci-dessus, pour
+        // rester éditables ; la grille de prestations elle-même et leurs prix
+        // viennent de SanitaryServiceSeeder.
+        $this->page('installation-sanitaire', 'Plomberie & installation sanitaire (hero & bénéfices)', 'noindex,nofollow', 'WebPage', [
+            $this->block('hero', [
+                'eyebrow' => 'Prix connus à l\'avance',
+                'heading' => 'Plomberie & installation sanitaire',
+                'subheading' => "Installation de robinetterie, éviers, WC, receveurs de douche et équipements de confort à domicile dans le Val-d'Oise : des prestations à prix fixe, réalisées par un professionnel qualifié.",
+            ]),
+            $this->block('feature_grid', [
+                'eyebrow' => 'Pourquoi choisir notre service de pose ?',
+                'heading' => 'Des interventions simples, sans surprise',
+                'items' => [
+                    ['icon' => 'check', 'title' => 'Prix connus à l\'avance', 'text' => 'Chaque prestation est affichée avec un tarif TTC clair, avant toute intervention.'],
+                    ['icon' => 'pin', 'title' => 'Déplacement inclus', 'text' => 'Le déplacement est inclus dans notre zone habituelle d\'intervention.'],
+                    ['icon' => 'handshake', 'title' => 'Professionnel qualifié', 'text' => 'Intervention réalisée dans le respect des règles de l\'art et des normes en vigueur.'],
+                    ['icon' => 'shield', 'title' => 'Aucun supplément surprise', 'text' => 'Aucune prestation complémentaire n\'est réalisée sans information préalable ni accord du client.'],
+                    ['icon' => 'star', 'title' => 'Assurances professionnelles', 'text' => 'Responsabilité civile professionnelle et garantie décennale souscrites auprès de Groupama.'],
+                    ['icon' => 'clock', 'title' => 'Réservation simple et rapide', 'text' => 'Une demande en ligne suffit : nous vous recontactons pour confirmer le rendez-vous.'],
+                ],
+            ]),
+            $this->block('process', [
+                'eyebrow' => 'Comment ça fonctionne',
+                'heading' => 'De la demande à la facture',
+                'steps' => [
+                    ['icon' => 'quote', 'title' => 'Choisissez votre prestation', 'description' => 'Sélectionnez la prestation correspondant à votre besoin parmi notre liste à prix fixe.'],
+                    ['icon' => 'ruler', 'title' => 'Complétez votre demande d\'intervention', 'description' => 'Remplissez le formulaire en ligne avec vos coordonnées et les détails utiles.'],
+                    ['icon' => 'phone', 'title' => 'Nous vous contactons', 'description' => 'Un interlocuteur vous recontacte pour confirmer le rendez-vous.'],
+                    ['icon' => 'handshake', 'title' => 'Le technicien intervient à votre domicile', 'description' => 'L\'intervention est réalisée au tarif annoncé, sans supplément sans votre accord.'],
+                    ['icon' => 'check', 'title' => 'Vous recevez votre facture', 'description' => 'La facture vous est transmise à l\'issue de l\'intervention.'],
+                ],
+            ]),
+        ], showBreadcrumb: false);
 
         $this->page('services', 'Services', 'index,follow', 'WebPage', [
             $this->block('hero', [
                 'heading' => 'Nos prestations de rénovation et d\'aménagement',
-                'subheading' => "Agencement cuisine, salle de bain, aménagement PMR et rénovation intérieure : découvrez l'ensemble de nos savoir-faire.",
+                'subheading' => "Plomberie & installation sanitaire, rénovation salle de bain et cuisine, douche sécurisée PMR et rénovation intérieure : découvrez l'ensemble de nos savoir-faire.",
             ]),
             $this->block('services_grid', [
                 'items' => [
-                    ['icon' => 'kitchen', 'title' => 'Agencement cuisine', 'summary' => 'Cuisines sur mesure, conception et pose complète.', 'url' => '/services/agencement-cuisine'],
-                    ['icon' => 'bathroom', 'title' => 'Agencement salle de bain', 'summary' => "Création ou rénovation de salle de bain clé en main.", 'url' => '/services/agencement-salle-de-bain'],
-                    ['icon' => 'pmr', 'title' => 'Aménagement PMR', 'summary' => "Douches sécurisées, barres d'appui, accessibilité.", 'url' => '/services/amenagement-pmr'],
-                    ['icon' => 'renovation', 'title' => 'Rénovation intérieure', 'summary' => 'Plomberie, électricité, peinture, cloisons.', 'url' => '/services/renovation-interieure'],
+                    [
+                        'is_info_card' => true,
+                        'icon' => 'plumbing',
+                        'title' => 'Plomberie & installation sanitaire',
+                        'info_label' => 'Prix fixes, à la demande',
+                        'info_value' => 'Robinetterie, WC, receveur…',
+                        'summary' => "Installation, remplacement et dépannage de vos équipements sanitaires.",
+                        'url' => '/installation-sanitaire',
+                    ],
+                    ['icon' => 'bathroom', 'title' => 'Rénovation salle de bain et cuisine', 'tag' => 'Agencement Sur Mesure', 'image' => $this->seedImage('salle-de-bain-2.jpg'), 'summary' => 'Salles de bain et cuisines fonctionnelles, durables et adaptées à votre budget.', 'url' => '/services/renovation-salle-de-bain-cuisine'],
+                    ['icon' => 'pmr', 'title' => 'Douche sécurisée & salle de bain PMR', 'tag' => 'PMR & Autonomie', 'image' => $this->seedImage('pmr-2.jpg'), 'summary' => "Douches sécurisées, barres d'appui, accessibilité.", 'url' => '/services/amenagement-pmr'],
+                    [
+                        'is_info_card' => true,
+                        'icon' => 'shield',
+                        'title' => 'Rénovation Intérieure',
+                        'info_label' => "Tous corps d'état",
+                        'info_value' => 'Plomberie, électricité, peinture',
+                        'summary' => 'Plomberie, électricité, peinture, cloisons.',
+                        'url' => '/services/renovation-interieure',
+                    ],
                 ],
             ]),
             $this->block('rich_text', [
                 'content' => "<h2>Une entreprise, quatre expertises complémentaires</h2>"
-                    ."<p>CONFOR'INO intervient à Argenteuil et dans tout le Val-d'Oise sur quatre types de projets : l'agencement de cuisine, l'agencement de salle de bain, l'aménagement PMR (accessibilité et sécurité à domicile) et la rénovation intérieure au sens large (plomberie, électricité, peinture, cloisons). Ces quatre prestations se recoupent souvent sur un même chantier — une salle de bain PMR implique par exemple de la plomberie et parfois de l'électricité — ce qui nous permet de proposer un devis unique et un seul interlocuteur, même lorsque plusieurs corps de métier interviennent.</p>"
+                    ."<p>CONFOR'INO intervient à Argenteuil et dans tout le Val-d'Oise sur quatre types de projets : la plomberie et l'installation sanitaire (prestations à prix fixe), la rénovation de salle de bain et de cuisine, la douche sécurisée et la salle de bain PMR (accessibilité et sécurité à domicile), et la rénovation intérieure au sens large (plomberie, électricité, peinture, cloisons). Ces quatre prestations se recoupent souvent sur un même chantier — une salle de bain PMR implique par exemple de la plomberie et parfois de l'électricité — ce qui nous permet de proposer un devis unique et un seul interlocuteur, même lorsque plusieurs corps de métier interviennent.</p>"
                     ."<h2>Une méthode identique quel que soit le projet</h2>"
                     ."<p>Quelle que soit la prestation, notre démarche reste la même : une étude sur mesure de votre logement (et non un modèle standardisé), un devis détaillé et gratuit sans engagement, puis un chantier coordonné par un interlocuteur unique jusqu'à la réception des travaux. Cette organisation évite les intermédiaires multiples et les mauvaises surprises sur les délais ou le budget.</p>"
                     ."<p>Toutes nos prestations sont couvertes par une assurance responsabilité civile professionnelle et une garantie décennale souscrites auprès de Groupama. Vous pouvez consulter le détail de chaque prestation ci-dessous, ou nous contacter directement pour un premier échange sur votre projet.</p>",
@@ -129,6 +271,7 @@ class PageSeeder extends Seeder
                     ."<p>Notre objectif est de vous proposer une solution claire, réaliste et durable, avec des travaux couverts par une assurance responsabilité civile professionnelle et une garantie décennale.</p>",
             ]),
             $this->block('stats', [
+                'eyebrow' => 'Artisanat engagé & proximité',
                 'heading' => 'En quelques chiffres',
                 'items' => [
                     ['value' => '13 ans', 'label' => "d'expérience métier dans la rénovation et l'aménagement"],
@@ -149,29 +292,121 @@ class PageSeeder extends Seeder
         ]);
 
         $this->page('faq', 'FAQ', 'index,follow', 'FAQPage', [
-            $this->block('hero', ['heading' => 'Questions fréquentes sur nos travaux']),
+            $this->block('hero', [
+                'eyebrow' => "Répertoire d'expertise & normes",
+                'heading' => 'Foire aux questions : toutes les réponses à vos projets de rénovation et d\'adaptation PMR',
+                'subheading' => "Le déroulement de nos chantiers dans le Val-d'Oise (95), nos normes d'accessibilité et nos engagements déontologiques.",
+            ]),
             $this->block('faq', [
-                'items' => [
-                    ['question' => 'Quels types de travaux propose CONFOR\'INO ?', 'answer' => "<p>CONFOR'INO est spécialisée dans la rénovation intérieure (plomberie, électricité, peinture, cloisons), les travaux d'accessibilité PMR et l'agencement de cuisines et salles de bain.</p>"],
-                    ['question' => 'Intervenez-vous uniquement dans le Val-d\'Oise ?', 'answer' => "<p>Nous sommes basés à Argenteuil (95) et intervenons principalement à {$cityList}. Nous nous déplaçons également ailleurs en Île-de-France selon les projets.</p>"],
-                    ['question' => 'Proposez-vous des devis gratuits ?', 'answer' => '<p>Oui, nous proposons des devis gratuits, personnalisés et sans engagement. Il vous suffit de remplir notre formulaire de contact ou de nous appeler.</p>'],
-                    ['question' => 'Proposez-vous des prestations pour les personnes à mobilité réduite (PMR) ?', 'answer' => "<p>Oui, nous réalisons des aménagements d'accessibilité PMR : douches sécurisées, barres d'appui, rampes d'accès, mains courantes et dalles podotactiles.</p>"],
-                    ['question' => 'Les travaux sont-ils couverts par une garantie ?', 'answer' => '<p>Oui. Nos prestations sont couvertes par une assurance responsabilité civile professionnelle et une garantie décennale souscrites auprès de Groupama.</p>'],
-                    ['question' => 'Comment se déroule une demande de devis ?', 'answer' => '<p>Vous remplissez le formulaire de contact ou nous appelez directement. Nous vous recontactons pour qualifier votre projet, puis organisons si besoin une visite technique avant l\'envoi du devis.</p>'],
+                'eyebrow' => 'Réponses claires',
+                'heading' => 'Questions fréquentes',
+                'searchable' => true,
+                'groups' => [
+                    [
+                        'heading' => 'Accessibilité, ergonomie & normes PMR',
+                        'badge' => 'Sécurité & confort',
+                        'icon' => 'pmr',
+                        'items' => [
+                            ['question' => "Qu'est-ce qu'une douche à l'italienne accessible PMR « sans seuil » ?", 'answer' => "<p>Contrairement à un receveur classique, un receveur extra-plat installé de plain-pied supprime le ressaut à l'entrée de la douche. Associé à un revêtement antidérapant et à une évacuation efficace, cet aménagement permet une entrée fluide et autonome au quotidien, pour une personne en déambulateur comme en fauteuil roulant.</p>"],
+                            ['question' => 'Comment concilier sécurité PMR et élégance sans effet médicalisé ?', 'answer' => "<p>Nous concevons des pièces de vie sécurisées, ergonomiques et chaleureuses qui valorisent votre logement plutôt que de lui donner un aspect d'établissement de soin. Barres d'appui design, mobilier à hauteur adaptée et finitions soignées font partie intégrante de chaque projet.</p>"],
+                            ['question' => 'Les adaptations conviennent-elles aussi bien aux personnes en fauteuil qu\'aux seniors autonomes ?', 'answer' => "<p>Oui. Chaque aménagement est étudié selon les besoins réels de la personne et non sur un standard générique : hauteur d'assise, largeur de passage, emplacement des barres d'appui sont adaptés cas par cas lors de la visite technique.</p>"],
+                        ],
+                    ],
+                    [
+                        'heading' => 'Devis, tarification & déontologie',
+                        'badge' => 'Zéro démarchage abusif',
+                        'icon' => 'shield',
+                        'items' => [
+                            ['question' => 'La visite technique et le devis sont-ils gratuits ?', 'answer' => '<p>Oui. Chaque projet fait l\'objet d\'une première étude et d\'un devis gratuit, sans engagement. Une visite technique peut être nécessaire pour confirmer la faisabilité et le prix.</p>'],
+                            ['question' => 'Le montant du devis peut-il être augmenté en cours de chantier ?', 'answer' => '<p>Non. Le devis signé est ferme. Toute modification du périmètre des travaux demandée en cours de chantier fait l\'objet d\'un avenant écrit, jamais d\'un ajout de facturation unilatéral.</p>'],
+                            ['question' => 'Quelle est votre politique en matière de démarchage téléphonique ?', 'answer' => "<p>Conformément à la réglementation encadrant le démarchage, CONFOR'INO ne procède à aucune prospection commerciale non sollicitée et recueille un consentement explicite et préalable avant toute prise de contact commerciale.</p>"],
+                        ],
+                    ],
+                    [
+                        'heading' => 'Déroulement du chantier, propreté & délais',
+                        'badge' => 'Chantier coordonné',
+                        'icon' => 'clock',
+                        'items' => [
+                            ['question' => 'Combien de temps dure un chantier de salle de bain ou de douche sécurisée ?', 'answer' => '<p>La durée dépend de l\'ampleur des travaux (dépose, plomberie, carrelage, finitions). Un calendrier précis vous est communiqué avec le devis, avec des points d\'étape réguliers plutôt qu\'un chantier qui s\'éternise sans visibilité.</p>'],
+                            ['question' => 'Comment protégez-vous mon logement et les parties communes pendant les travaux ?', 'answer' => '<p>Protection des sols et accès, évacuation régulière des gravats et nettoyage du chantier font partie de notre méthode de travail, du premier jour à la réception.</p>'],
+                            ['question' => 'Vos artisans intervenants sont-ils des sous-traitants inconnus ?', 'answer' => "<p>Non. Nous refusons catégoriquement la sous-traitance non déclarée : les artisans qui interviennent chez vous sont ceux que nous mandatons directement, avec un interlocuteur unique pour tout le chantier.</p>"],
+                        ],
+                    ],
+                    [
+                        'heading' => "Garantie décennale & secteur d'intervention",
+                        'badge' => "Val-d'Oise & alentours",
+                        'icon' => 'pin',
+                        'items' => [
+                            ['question' => 'Quelles sont les garanties et assurances qui couvrent mes travaux ?', 'answer' => '<p>Nos prestations sont couvertes par une assurance responsabilité civile professionnelle et une garantie décennale souscrites auprès de Groupama.</p>'],
+                            ['question' => 'Dans quelles communes intervenez-vous ?', 'answer' => "<p>Nous sommes basés à Argenteuil (95) et intervenons principalement à {$cityList}, ainsi que dans les autres communes du Val-d'Oise sur demande.</p>"],
+                            ['question' => 'Que se passe-t-il en cas de souci après la réception des travaux ?', 'answer' => '<p>Les garanties légales de parfait achèvement et de bon fonctionnement s\'appliquent conformément à la loi, en complément de notre garantie décennale. Contactez-nous, nous qualifions la demande rapidement.</p>'],
+                        ],
+                    ],
                 ],
+            ]),
+            $this->block('contact_form', [
+                'eyebrow' => 'Formulaire technique',
+                'heading' => 'Posez votre question à notre équipe',
+                'intro' => 'Décrivez votre projet ou votre question, un technicien vous répond sous 24h ouvrées.',
             ]),
         ]);
 
         $this->page('contact', 'Contact / Devis gratuit', 'index,follow', 'WebPage', [
             $this->block('hero', [
-                'heading' => 'Contactez-nous pour votre projet',
-                'subheading' => "Décrivez votre projet, nous revenons vers vous sous 48h ouvrées avec un premier retour.",
+                'eyebrow' => 'Écoute & étude sur-mesure',
+                'heading' => 'Parlons de votre projet : une écoute humaine, un métré rigoureux sans engagement.',
+                'subheading' => "Que ce soit pour une douche PMR sécurisée, une rénovation complète ou un agencement de pièce, nous nous déplaçons chez vous à Argenteuil et dans tout le Val-d'Oise.",
+                'proof_line' => 'Visite technique gratuite · Devis ferme · Zéro démarchage commercial',
+                'cta_label' => 'Programmer ma visite technique',
+                'cta_url' => '#devis',
+                'strip_icon' => 'clock',
+                'strip_text' => 'Réponse garantie sous 48h ouvrées',
+                'strip_badge' => 'Standard 8h-19h',
             ]),
             $this->block('contact_form', [
-                'heading' => 'Demande de devis ou de renseignements',
-                'intro' => 'Réponse sous 48h ouvrées, sans engagement.',
+                'eyebrow' => 'Formulaire d\'étude & rendez-vous',
+                'heading' => 'Programmez votre visite technique à domicile',
+                'intro' => "Remplissez les 4 étapes ci-dessous. Un technicien CONFOR'INO valide le créneau avec vous par téléphone avant toute venue.",
+                'wizard' => true,
+            ]),
+            $this->block('service_areas', [
+                'heading' => "Zone d'intervention",
+                'intro' => "Basés à Argenteuil, nous nous déplaçons sans frais dans tout le Val-d'Oise :",
+                'city_ids' => City::query()->active()->pluck('id')->all(),
             ]),
         ]);
+
+        // Page "technique", sans route publique dédiée (/realisations est géré par
+        // RealisationController) : sert uniquement à rendre éditables depuis l'admin
+        // le texte du hero et la charte qualité de la page Réalisations.
+        $this->page('realisations', 'Réalisations (hero & charte qualité)', 'noindex,nofollow', 'WebPage', [
+            $this->block('hero', [
+                'eyebrow' => 'Portfolio technique & études de cas',
+                'heading' => "Nos réalisations : l'exigence au service de l'autonomie et du confort",
+                'subheading' => "Découvrez nos chantiers de rénovation complète, d'adaptation PMR sécurisée et d'agencement sur mesure réalisés à Argenteuil et dans tout le Val-d'Oise.",
+                'cta_label' => 'Demander mon étude gratuite',
+                'cta_url' => '#devis',
+                'cta2_label' => 'Voir les chantiers',
+                'cta2_url' => '#galerie',
+            ]),
+            $this->block('stats', [
+                'items' => [
+                    ['value' => '13 ans', 'label' => "d'expérience métier"],
+                    ['value' => 'Décennale', 'label' => 'garantie Groupama'],
+                    ['value' => '0€', 'label' => 'devis gratuit, sans surprise'],
+                ],
+            ]),
+            $this->block('feature_grid', [
+                'eyebrow' => 'Méthodologie & rigueur',
+                'heading' => 'La charte de qualité appliquée à chacun de nos chantiers',
+                'items' => [
+                    ['icon' => 'shield', 'title' => 'Protection du chantier', 'text' => "Sols, escaliers et parties communes protégés avant toute intervention, pour un chantier propre du premier au dernier jour."],
+                    ['icon' => 'check', 'title' => 'Propreté & tri des déchets', 'text' => "Évacuation régulière des gravats et tri sélectif, sans stockage prolongé sur la voie publique."],
+                    ['icon' => 'handshake', 'title' => 'Interlocuteur dédié', 'text' => 'Un seul interlocuteur suit votre chantier du premier échange à la réception, avec des points réguliers.'],
+                    ['icon' => 'shield', 'title' => 'Réception & décennale', 'text' => 'Contrôle final avant réception, chantier propre et garantie décennale Groupama sur les travaux réalisés.'],
+                ],
+            ]),
+        ], showBreadcrumb: false);
 
         $this->page('mentions-legales', 'Mentions légales', 'index,follow', 'WebPage', [
             $this->block('rich_text', ['content' => $this->mentionsLegalesHtml()]),
@@ -190,13 +425,14 @@ class PageSeeder extends Seeder
         ]);
     }
 
-    protected function page(string $slug, string $title, string $robots, string $schemaType, array $blocks, bool $showBreadcrumb = true): void
+    protected function page(string $slug, string $title, string $robots, string $schemaType, array $blocks, bool $showBreadcrumb = true, string $template = 'default'): void
     {
         $page = Page::query()->updateOrCreate(
             ['slug' => $slug],
             [
                 'title' => $title,
                 'status' => 'published',
+                'template' => $template,
                 'robots' => $robots,
                 'schema_type' => $schemaType,
                 'show_breadcrumb' => $showBreadcrumb,
@@ -302,6 +538,20 @@ class PageSeeder extends Seeder
             <li>Données client : durée du contrat + 5 ans d'archivage</li>
             <li>Journaux techniques : 12 mois maximum</li>
         </ul>
+
+        <h2>Cookies et traceurs</h2>
+        <p>Lors de votre première visite, un bandeau vous demande d'accepter ou de refuser le dépôt de
+        cookies de mesure d'audience. Votre choix est mémorisé dans le stockage local de votre
+        navigateur (finalité strictement technique, exemptée de consentement par la CNIL) :</p>
+        <ul>
+            <li><strong>Mémorisation de votre choix</strong> (stockage local, non soumis à consentement) :
+            conservé jusqu'à ce que vous effaciez les données de navigation de votre appareil.</li>
+            <li><strong>Mesure d'audience</strong> (Google Analytics et/ou Google Tag Manager) : déposés
+            uniquement si vous avez cliqué sur « Accepter », jamais avant et jamais par défaut. Durée de
+            conservation : 13 mois maximum, conformément aux recommandations de la CNIL.</li>
+        </ul>
+        <p>Vous pouvez modifier votre choix à tout moment depuis le lien « Gérer mes cookies » présent en
+        bas de chaque page du site.</p>
 
         <h2>Vos droits</h2>
         <p>Accès, rectification, effacement, limitation, opposition, portabilité. Demandes à

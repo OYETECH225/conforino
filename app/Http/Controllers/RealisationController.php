@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Concerns\BuildsSeoView;
+use App\Models\Page;
 use App\Models\Realisation;
+use App\Models\Review;
+use App\Models\Service;
 use Symfony\Component\HttpFoundation\Response;
 
 class RealisationController extends Controller
@@ -13,6 +16,17 @@ class RealisationController extends Controller
     public function index(): Response
     {
         $realisations = Realisation::query()->published()->ordered()->with(['service', 'city'])->get();
+        $services = Service::query()->active()->ordered()->withCount(['realisations' => fn ($q) => $q->published()])->get();
+        $reviews = Review::query()->published()->ordered()->get();
+
+        // Contenu éditorial de cette page (hero, charte qualité) géré comme une
+        // Page CMS "cachée" (sans route publique dédiée) pour rester éditable
+        // depuis l'admin au même titre que le reste du site.
+        $contentBlocks = Page::query()->where('slug', 'realisations')->with('activeBlocks')->first()?->activeBlocks
+            ?? collect();
+        $heroBlock = $contentBlocks->firstWhere('type', 'hero');
+        $statsBlock = $contentBlocks->firstWhere('type', 'stats');
+        $charteBlock = $contentBlocks->firstWhere('type', 'feature_grid');
 
         $breadcrumbs = [
             ['name' => 'Accueil', 'url' => url('/')],
@@ -21,6 +35,11 @@ class RealisationController extends Controller
 
         return response()->view('realisations.index', array_merge([
             'realisations' => $realisations,
+            'services' => $services,
+            'reviews' => $reviews,
+            'heroBlock' => $heroBlock,
+            'statsBlock' => $statsBlock,
+            'charteBlock' => $charteBlock,
             'showBreadcrumb' => true,
         ], $this->seoViewData([
             'title' => "Nos réalisations avant/après | CONFOR'INO",

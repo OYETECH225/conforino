@@ -37,8 +37,14 @@ class PageController extends Controller
         $extraSchemas = [];
         $faqBlock = $page->activeBlocks->firstWhere('type', Block::TYPE_FAQ);
 
-        if ($faqBlock && ! empty($faqBlock->get('items'))) {
-            $extraSchemas[] = app(SchemaBuilder::class)->faqPage($faqBlock->get('items'));
+        if ($faqBlock) {
+            $faqItems = $faqBlock->get('items') ?: collect($faqBlock->get('groups', []))
+                ->flatMap(fn (array $group) => $group['items'] ?? [])
+                ->all();
+
+            if (! empty($faqItems)) {
+                $extraSchemas[] = app(SchemaBuilder::class)->faqPage($faqItems);
+            }
         }
 
         return response()->view('pages.show', array_merge([

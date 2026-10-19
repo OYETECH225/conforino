@@ -2,14 +2,9 @@
 
 namespace App\Filament\Resources\Pages\Schemas;
 
-use App\Models\City;
-use App\Models\Review;
-use Filament\Forms\Components\Builder;
-use Filament\Forms\Components\Builder\Block as BuilderBlock;
+use App\Filament\Support\BlocksBuilder;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -47,7 +42,7 @@ class PageForm
                                     ->helperText('Libellé affiché dans le fil d\'Ariane si différent du titre.')
                                     ->columnSpanFull(),
 
-                                static::blocksBuilder(),
+                                BlocksBuilder::make(),
                             ]),
 
                         Tab::make('SEO')
@@ -89,6 +84,7 @@ class PageForm
                                 FileUpload::make('og_image')
                                     ->label('Image de partage (Open Graph)')
                                     ->image()
+                                    ->disk('public')
                                     ->directory('og-images')
                                     ->columnSpanFull(),
                             ])->columns(2),
@@ -104,168 +100,17 @@ class PageForm
                                 Toggle::make('show_breadcrumb')
                                     ->label('Afficher le fil d\'Ariane')
                                     ->default(true),
-                            ])->columns(2),
-                    ]),
-            ]);
-    }
-
-    protected static function blocksBuilder(): Builder
-    {
-        $cityOptions = fn () => City::query()->active()->ordered()->pluck('name', 'id');
-        $reviewOptions = fn () => Review::query()->published()->pluck('author_name', 'id');
-
-        return Builder::make('blocks')
-            ->label('Blocs de contenu')
-            ->addActionLabel('Ajouter un bloc')
-            ->collapsible()
-            ->collapsed()
-            ->cloneable()
-            ->reorderableWithButtons()
-            ->columnSpanFull()
-            ->blocks([
-                BuilderBlock::make('hero')
-                    ->label('Hero')
-                    ->icon('heroicon-o-photo')
-                    ->schema([
-                        TextInput::make('heading')->label('Titre (H1)')->required()->columnSpanFull(),
-                        Textarea::make('subheading')->label('Sous-titre')->rows(2)->columnSpanFull(),
-                        FileUpload::make('image')->label('Photo avant/après')->image()->directory('hero'),
-                        TextInput::make('cta_label')->label('Texte du bouton'),
-                        TextInput::make('cta_url')->label('Lien du bouton'),
-                    ])->columns(2),
-
-                BuilderBlock::make('rich_text')
-                    ->label('Texte riche')
-                    ->icon('heroicon-o-document-text')
-                    ->schema([
-                        RichEditor::make('content')->label('Contenu')->columnSpanFull(),
-                    ]),
-
-                BuilderBlock::make('services_grid')
-                    ->label('Grille de services')
-                    ->icon('heroicon-o-squares-2x2')
-                    ->schema([
-                        TextInput::make('heading')->label('Titre de la section')->columnSpanFull(),
-                        Repeater::make('items')
-                            ->label('Cartes')
-                            ->schema([
-                                Select::make('icon')->label('Icône')->options(\App\Support\Icons::options())->required(),
-                                TextInput::make('title')->label('Titre')->required(),
-                                Textarea::make('summary')->label('Résumé')->rows(2)->columnSpanFull(),
-                                TextInput::make('url')->label('Lien')->required(),
-                            ])->columns(2)
-                            ->reorderableWithButtons()
-                            ->columnSpanFull(),
-                    ]),
-
-                BuilderBlock::make('testimonials')
-                    ->label('Témoignages / Avis clients')
-                    ->icon('heroicon-o-chat-bubble-left-right')
-                    ->schema([
-                        TextInput::make('heading')->label('Titre de la section')->columnSpanFull(),
-                        Select::make('review_ids')
-                            ->label('Avis à afficher')
-                            ->multiple()
-                            ->options($reviewOptions)
-                            ->searchable()
-                            ->columnSpanFull(),
-                    ]),
-
-                BuilderBlock::make('faq')
-                    ->label('FAQ')
-                    ->icon('heroicon-o-question-mark-circle')
-                    ->schema([
-                        TextInput::make('heading')->label('Titre de la section')->columnSpanFull(),
-                        Repeater::make('items')
-                            ->label('Questions')
-                            ->schema([
-                                TextInput::make('question')->required()->columnSpanFull(),
-                                RichEditor::make('answer')->required()->columnSpanFull(),
-                            ])
-                            ->reorderableWithButtons()
-                            ->collapsible()
-                            ->itemLabel(fn (array $state): ?string => $state['question'] ?? null)
-                            ->columnSpanFull(),
-                    ]),
-
-                BuilderBlock::make('service_areas')
-                    ->label('Zones desservies')
-                    ->icon('heroicon-o-map-pin')
-                    ->schema([
-                        TextInput::make('heading')->label('Titre de la section')->columnSpanFull(),
-                        Textarea::make('intro')->label('Texte d\'introduction')->rows(2)->columnSpanFull(),
-                        Select::make('city_ids')
-                            ->label('Villes à afficher')
-                            ->multiple()
-                            ->options($cityOptions)
-                            ->searchable()
-                            ->columnSpanFull(),
-                    ]),
-
-                BuilderBlock::make('contact_form')
-                    ->label('Formulaire de contact / devis')
-                    ->icon('heroicon-o-envelope')
-                    ->schema([
-                        TextInput::make('heading')->label('Titre de la section')->columnSpanFull(),
-                        Textarea::make('intro')->label('Texte d\'introduction')->rows(2)->columnSpanFull(),
-                    ]),
-
-                BuilderBlock::make('stats')
-                    ->label('Chiffres clés')
-                    ->icon('heroicon-o-chart-bar')
-                    ->schema([
-                        TextInput::make('heading')->label('Titre de la section')->columnSpanFull(),
-                        Repeater::make('items')
-                            ->label('Chiffres')
-                            ->schema([
-                                TextInput::make('value')->label('Valeur (ex: 13 ans)')->required(),
-                                TextInput::make('label')->label('Légende')->required(),
-                            ])->columns(2)
-                            ->reorderableWithButtons()
-                            ->columnSpanFull(),
-                    ]),
-
-                BuilderBlock::make('before_after')
-                    ->label('Avant / Après')
-                    ->icon('heroicon-o-arrows-right-left')
-                    ->schema([
-                        TextInput::make('heading')->label('Titre de la section')->columnSpanFull(),
-                        Repeater::make('items')
-                            ->label('Paires avant / après')
-                            ->schema([
-                                FileUpload::make('before_image')->label('Avant')->image()->required(),
-                                FileUpload::make('after_image')->label('Après')->image()->required(),
-                                TextInput::make('caption')->label('Légende')->columnSpanFull(),
-                            ])->columns(2)
-                            ->reorderableWithButtons()
-                            ->columnSpanFull(),
-                    ]),
-
-                BuilderBlock::make('process')
-                    ->label('Parcours client (étapes numérotées)')
-                    ->icon('heroicon-o-list-bullet')
-                    ->schema([
-                        TextInput::make('heading')->label('Titre de la section')->columnSpanFull(),
-                        Repeater::make('steps')
-                            ->label('Étapes')
-                            ->schema([
-                                TextInput::make('title')->label('Titre de l\'étape')->required()->columnSpanFull(),
-                                Repeater::make('points')
-                                    ->label('Points clés')
-                                    ->simple(TextInput::make('point')->required())
+                                Select::make('template')
+                                    ->label('Gabarit de page')
+                                    ->options([
+                                        'default' => 'Standard (menu et pied de page complets)',
+                                        'landing' => "Landing page (Ads) — sans menu, formulaire de devis mis en avant",
+                                    ])
+                                    ->default('default')
+                                    ->required()
+                                    ->helperText("Le gabarit « Landing page » retire le menu et les liens de navigation pour concentrer le visiteur sur le formulaire de devis : à utiliser pour les pages pointées par une campagne Google Ads. Pensez à passer le SEO en « noindex » si la page ne doit pas apparaître dans Google.")
                                     ->columnSpanFull(),
-                            ])
-                            ->reorderableWithButtons()
-                            ->itemLabel(fn (array $state): ?string => $state['title'] ?? null)
-                            ->columnSpanFull(),
-                    ]),
-
-                BuilderBlock::make('gallery_preview')
-                    ->label('Aperçu réalisations')
-                    ->icon('heroicon-o-photo')
-                    ->schema([
-                        TextInput::make('heading')->label('Titre de la section')->columnSpanFull(),
-                        TextInput::make('count')->label('Nombre de photos à afficher')->numeric()->default(4),
+                            ])->columns(2),
                     ]),
             ]);
     }
