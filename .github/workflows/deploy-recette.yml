@@ -58,6 +58,12 @@ jobs:
       - name: Publish Filament assets
         run: php artisan filament:assets
 
+      # Sert livewire.js en fichier statique : via la route PHP, la compression
+      # gzip d'OVH garde le Content-Length non compresse et le navigateur rejette
+      # le script (plus de Livewire ni d'Alpine, menu mobile inactif).
+      - name: Publish Livewire assets
+        run: php artisan vendor:publish --tag=livewire:assets --force
+
       - name: Build frontend assets
         run: |
           npm ci
