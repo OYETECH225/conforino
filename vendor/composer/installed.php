@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'conforino/site',
-        'pretty_version' => 'dev-71cd70b03db046a97d52d27e06120dec6273fa73',
-        'version' => 'dev-71cd70b03db046a97d52d27e06120dec6273fa73',
-        'reference' => '71cd70b03db046a97d52d27e06120dec6273fa73',
+        'pretty_version' => 'dev-3a342a4a7cd1669872b5c91d1f140281bcf25f98',
+        'version' => 'dev-3a342a4a7cd1669872b5c91d1f140281bcf25f98',
+        'reference' => '3a342a4a7cd1669872b5c91d1f140281bcf25f98',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -83,9 +83,9 @@
             'dev_requirement' => false,
         ),
         'conforino/site' => array(
-            'pretty_version' => 'dev-71cd70b03db046a97d52d27e06120dec6273fa73',
-            'version' => 'dev-71cd70b03db046a97d52d27e06120dec6273fa73',
-            'reference' => '71cd70b03db046a97d52d27e06120dec6273fa73',
+            'pretty_version' => 'dev-3a342a4a7cd1669872b5c91d1f140281bcf25f98',
+            'version' => 'dev-3a342a4a7cd1669872b5c91d1f140281bcf25f98',
+            'reference' => '3a342a4a7cd1669872b5c91d1f140281bcf25f98',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
