@@ -34,7 +34,7 @@ class AdminPanelProvider extends PanelProvider
                 'danger' => Color::Red,
                 'gray' => Color::hex('#1E3664'),
             ])
-            ->favicon(asset('favicon.svg'))
+            ->favicon(asset('favicon-32x32.png'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
