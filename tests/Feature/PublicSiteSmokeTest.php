@@ -55,6 +55,25 @@ class PublicSiteSmokeTest extends TestCase
         ];
     }
 
+    #[DataProvider('sanitaryPages')]
+    public function test_sanitary_pages_render_contact_form(string $uri): void
+    {
+        $this->get($uri)
+            ->assertOk()
+            ->assertSee('id="devis"', false)
+            ->assertDontSee('<x-render-blocks', false);
+    }
+
+    public static function sanitaryPages(): array
+    {
+        return [
+            ['/installation-sanitaire'],
+            ['/installation-sanitaire/tarifs'],
+            ['/installation-sanitaire/robinet-cuisine'],
+            ['/installation-sanitaire/pare-baignoire'],
+        ];
+    }
+
     public function test_homepage_has_exactly_one_h1(): void
     {
         $html = $this->get('/')->getContent();

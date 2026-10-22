@@ -91,9 +91,14 @@
         </p>
     </section>
 
-    <x-render-blocks :blocks="collect([new \App\Models\Block(['type' => 'contact_form', 'data' => [
-        'eyebrow' => 'Prix connu à l\'avance, sans surprise',
-        'heading' => 'Demander : '.$service->title,
-        'intro' => \"Complétez le formulaire ou appelez-nous directement : nous confirmons votre rendez-vous rapidement, sans supplément sans votre accord préalable.\",
-    ]])])" />
+    @php
+        // Construit hors de l'attribut du composant : Blade ne compile pas un
+        // attribut contenant des guillemets échappés et le recopie tel quel.
+        $contactBlock = new \App\Models\Block(['type' => 'contact_form', 'data' => [
+            'eyebrow' => "Prix connu à l'avance, sans surprise",
+            'heading' => 'Demander : '.$service->title,
+            'intro' => "Complétez le formulaire ou appelez-nous directement : nous confirmons votre rendez-vous rapidement, sans supplément sans votre accord préalable.",
+        ]]);
+    @endphp
+    <x-render-blocks :blocks="collect([$contactBlock])" />
 </x-layout>

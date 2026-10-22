@@ -47,9 +47,14 @@
         </p>
     </section>
 
-    <x-render-blocks :blocks="collect([new \App\Models\Block(['type' => 'contact_form', 'data' => [
-        'eyebrow' => 'Devis rapide & gratuit',
-        'heading' => 'Une prestation à demander ?',
-        'intro' => 'Complétez le formulaire en précisant la prestation souhaitée, ou appelez-nous directement.',
-    ]])])" />
+    @php
+        // Construit hors de l'attribut du composant : Blade ne compile pas un
+        // attribut contenant des guillemets échappés et le recopie tel quel.
+        $contactBlock = new \App\Models\Block(['type' => 'contact_form', 'data' => [
+            'eyebrow' => 'Devis rapide & gratuit',
+            'heading' => 'Une prestation à demander ?',
+            'intro' => 'Complétez le formulaire en précisant la prestation souhaitée, ou appelez-nous directement.',
+        ]]);
+    @endphp
+    <x-render-blocks :blocks="collect([$contactBlock])" />
 </x-layout>
